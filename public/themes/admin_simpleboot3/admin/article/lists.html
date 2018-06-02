@@ -1,0 +1,109 @@
+<include file="public@header"/>
+</head>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/layerconfig.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/admin.css">
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a>文章列表</a></li>
+        <li><a href="{:url('admin/Article/add')}">添加文章</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('Admin/BlackWords/index')}">
+
+        标题：
+        <input class="form-control" type="text" name="title" style="width: 200px;" value="{:input('request.words')}" placeholder="标题">
+        &nbsp;
+
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+        <a class="btn btn-danger" href="{:url('Admin/BlackWords/index')}">清空</a>
+
+        <input type="button" class="btn btn-primary" value="添加" onclick="add()">
+    </form>
+    <form method="post" class="js-ajax-form">
+        <table class="table table-hover table-bordered tablecenter">
+            <thead style="font-size: 24px;">
+                <tr>
+                    <th class="tablecenter">ID</th>
+                    <th class="tablecenter">分类</th>
+                    <th class="tablecenter">标题</th>
+                    <th class="tablecenter">来源</th>
+                    <th class="tablecenter">摘要</th>
+                    <th class="tablecenter">添加时间</th>
+                    <th class="tablecenter">发布时间</th>
+                    <th class="tablecenter">{:lang('ACTIONS')}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <foreach name = "list" item = "vo">
+                    <tr>
+                        <th class="tablecenter">{$vo.id}</th>
+                        <th class="tablecenter">{$vo.name}</th>
+                        <th class="tablecenter">{$vo.title}</th>
+                        <th class="tablecenter">{$vo.source}</th>
+                        <th class="tablecenter">{$vo.abstract}</th>
+                        <th class="tablecenter">{$vo.add_time}</th>
+                        <th class="tablecenter">{$vo.release_time}</th>
+                        <th class="tablecenter">{:lang('ACTIONS')}</th>
+                    </tr>
+                </foreach>
+            </tbody>
+        </table>
+        <div class="pagination"></div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/layerconfig.js"></script>
+<script type="text/javascript">
+
+    //取消黑词
+    function cancel(id){
+        layer.confirm('确定要取消该黑词设定吗？',function(){
+            var url = "{:url('Admin/BlackWords/cancel')}";
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                data: {'id': id},
+                success:function(res){
+                    layer.msg(res.msg);
+                    if (res.code == 1) {
+                        setTimeout(function(){
+                            window.location.reload();
+                        },2000)
+                    }
+                    
+                }
+            })
+            
+            
+        })
+    }
+
+    function add(){
+        layer.prompt({
+            formType: 2,
+            title: '请输入黑词',
+            area: ['400px', '50px'] //自定义文本域宽高
+        }, function(value, index, elem){
+            $.ajax({
+                url: "{:url('Admin/BlackWords/addWords')}",
+                type: 'POST',
+                dataType: 'json',
+                data: {'value': value},
+                success:function(res){
+                    layer.msg(res.msg);
+                    if (res.code == 1) {
+                        setTimeout(function(){
+                            window.location.reload();
+                        },2000)
+                    }
+                    
+                }
+            })
+        });
+    }
+</script>
+</body>
+</html>
