@@ -1,0 +1,9 @@
+    /*设计Layer样式*/
+    .layer .layui-layer-title{
+        background-color: #2C3E50;
+        color:white;
+    }
+    .layer .layui-layer-btn a{
+        background-color: #2C3E50;
+        color:white;
+    }

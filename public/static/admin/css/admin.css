@@ -1,0 +1,15 @@
+/*a标签按钮样式*/
+.abutton{
+        text-decoration: underline;
+        outline: 0;
+        background-color: transparent;
+        line-height: 1.42857143;
+        border-collapse: collapse;
+        border-spacing: 0;
+        font-family: "Source Sans Pro",Calibri,Candara,Arial,sans-serif;
+        font-size: 14px;
+}
+/*表格居中hg*/
+.tablecenter{
+    text-align: center;
+}
