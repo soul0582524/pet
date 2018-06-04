@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:56:"themes/admin_simpleboot3/admin\classification\index.html";i:1527768366;s:70:"D:\phpStudy\WWW\pet\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:56:"themes/admin_simpleboot3/admin\classification\index.html";i:1528096777;s:70:"D:\phpStudy\WWW\pet\public\themes\admin_simpleboot3\public\header.html";i:1528084984;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,7 +94,12 @@
         分类名称：
         <input class="form-control" type="text" name="name" style="width: 200px;" value="<?php echo input('request.name'); ?>" placeholder="请输入分类名称">
         &nbsp;
-
+        分类等级：
+        <select style="width: 200px; height: 34px;" name="level">
+            <option value="0" >请选择</option>
+            <option value="1" >selected</if>" >一级分类</option>
+            <option value="2" >二级分类</option>
+        </select>
         <input type="submit" class="btn btn-primary" value="搜索"/>
         <a class="btn btn-danger" href="<?php echo url('Admin/Classification/index'); ?>">清空</a>
 
@@ -105,7 +110,9 @@
             <thead style="font-size: 24px;">
                 <tr>
                     <th class="tablecenter">ID</th>
+                    <th class="tablecenter">分类等级</th>
                     <th class="tablecenter">分类名称</th>
+                    <th class="tablecenter">父分类名称</th>
                     <th class="tablecenter"><?php echo lang('ACTIONS'); ?></th>
                 </tr>
             </thead>
@@ -113,7 +120,17 @@
                 <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): if( count($list)==0 ) : echo "" ;else: foreach($list as $key=>$vo): ?>
                     <tr>
                         <td><?php echo $vo['id']; ?></td>
-                        <td><?php echo $vo['name']; ?>
+                        <td>
+                            <?php if($vo['level'] == 1): ?>
+                                一级分类
+                            <?php elseif($vo['level'] == 2): ?>    
+                                二级分类
+                            <?php endif; ?>
+                        </td>
+                        <td><?php echo $vo['name']; ?></td>
+                        <td>
+                            <?php if($vo['level'] != 1): ?>
+                                <?php echo $vo['pname']; endif; ?>
                         </td>
                         <td>
                             <a href="javascript:cancel(<?php echo $vo['id']; ?>)" class="abutton">删除分类</a>
@@ -136,6 +153,27 @@
     */
     function add(){
         window.location.href = "<?php echo url('admin/Classification/addClass'); ?>";
+    }
+
+    /**
+    * 删除分类
+    * @param id 分类id
+    */
+    function cancel(id){
+        layer.confirm('确定要删除该分类吗？',function(){
+            $.ajax({
+                url: "<?php echo url('admin/Classification/cancel'); ?>",
+                type: 'POST',
+                dataType: 'json',
+                data: {"id": id},
+                success:function(res){
+                    layer.msg(res.msg);
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 2000);
+                }
+            });
+        })
     }
 </script>
 </body>

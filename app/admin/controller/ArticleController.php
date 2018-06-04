@@ -35,6 +35,10 @@ class ArticleController extends AdminBaseController{
 				$list[$key]['release_time'] = date('Y-m-d H:i:s', $value['release_time']);
 			}
 
+			if (mb_strlen($value['abstract']) > 10) {
+				$abstract = mb_substr($value['abstract'], 0,10);
+				$list[$key]['abstract'] = $abstract.'……';
+			}
 			
 		}
 		$this ->assign('list', $list);

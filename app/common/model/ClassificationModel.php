@@ -71,6 +71,13 @@ class ClassificationModel extends Model
 	public function insertClass($add){
 		return $result = Db::table('pet_classification') ->insert($add);
 	}
+
+	/**
+	* 获取添加数据的自增id
+	*/
+	public function getLastInsID(){
+		return Db::table('pet_classification') ->getLastInsID();
+	}
 }
 
 ?>

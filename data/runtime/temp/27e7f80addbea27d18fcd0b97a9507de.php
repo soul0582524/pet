@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:46:"themes/admin_simpleboot3/admin\main\index.html";i:1526912367;s:70:"D:\phpStudy\WWW\pet\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:46:"themes/admin_simpleboot3/admin\main\index.html";i:1528084984;s:70:"D:\phpStudy\WWW\pet\public\themes\admin_simpleboot3\public\header.html";i:1528084984;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -114,7 +114,7 @@
 
 </style>
 <?php 
-    \think\Hook::listen('admin_before_head_end',$temp5b12102f7f77a,null,false);
+    \think\Hook::listen('admin_before_head_end',$temp5b14d8cdd4fbd,null,false);
  ?>
 </head>
 <body>
@@ -269,7 +269,7 @@
 
 </script>
 <?php 
-    \think\Hook::listen('admin_before_body_end',$temp5b12102f7f793,null,false);
+    \think\Hook::listen('admin_before_body_end',$temp5b14d8cdd4fbd,null,false);
  ?>
 </body>
 </html>
