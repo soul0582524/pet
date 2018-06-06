@@ -1,7 +1,14 @@
 <include file="public@header"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/layerconfig.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/admin.css">
 <style type="text/css">
     .pic-list li {
         margin-bottom: 5px;
+    }
+
+    .select{
+        height: 34px; 
+        width: 200px;
     }
 </style>
 
@@ -19,11 +26,15 @@
                     <tr>
                         <th width="100">分类<span class="form-required">*</span></th>
                         <td>
-                           <select name="classi" id="classi" onchange="getNextClass()">
-                               <option value="0" style="height: 34px; width: 200px;">请选择分类</option>
+                           <select name="classi" class="select" id="classi" onchange="getNextClass()">
+                               <option value="0">请选择分类</option>
                                <foreach name = "classi" item = "vo">
                                     <option value="{$vo.id}">{$vo.name}</option>
                                </foreach>
+                           </select>
+
+                           <select id="class2" class="select" style="display: none;">
+                               <option value="0">请选择二级分类</option>
                            </select>
                         </td>
                     </tr>
@@ -75,7 +86,9 @@
 <script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
 <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/js/layerconfig.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/admin.js"></script>
 <script type="text/javascript">
+    var getNextClassUrl = '{:url("common/Common/getNextClass")}';
     $(function () {
 
         editorcontent = new baidu.editor.ui.Editor();
@@ -98,6 +111,8 @@
             layer.msg('请选择文章分类');
             return false;
         }
+        //获得二级分类
+        var class2 = $('#class2').val();
         //获得标题
         var title  = $('#title').val();
         if (title == '') {
@@ -115,7 +130,7 @@
             return false;
         }
 
-        var param = {"classi":classi, "title":title, "source":source, "abstract":abstract, "content":content};
+        var param = {"classi":classi, "class2":class2,"title":title, "source":source, "abstract":abstract, "content":content};
 
         $.ajax({
             url: '{:url("Article/addArticle")}',
@@ -149,14 +164,18 @@
                 dataType: 'json',
                 data: {'pid':pid},
                 success:function(res){
-                    /*layer.msg(res.msg);
-                    setTimeout(function(){
-                        if (res.code == 1) {
-                            window.location.href = "{:url('admin/Article/lists')}"
-                        }else if (res.code == 2) {
-                            window.location.reload();
+                    $('#class2').css('display','');
+                    var content = '';
+                    if (res.status == 1) {
+                        content = "<option value = '0'>请选择二级分类</option>";
+                        for (var i = 0; i < res.data.length; i++) {
+                            
+                            content += "<option value = '"+res.data[i].id+"'>"+res.data[i].name+"</option>";
                         }
-                    },2000);*/
+                    }else if (res.status == 2) {
+                        content  = "<option value = '0'>暂无下级分类</option>";
+                    }
+                    $('#class2').html(content);
                 }
             })
         }

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:46:"themes/admin_simpleboot3/admin\main\index.html";i:1528084984;s:70:"D:\phpStudy\WWW\pet\public\themes\admin_simpleboot3\public\header.html";i:1528084984;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:46:"themes/admin_simpleboot3/admin\main\index.html";i:1526912367;s:71:"D:\phpStudy\WWW\pets\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +14,9 @@
     <![endif]-->
 
 
-    <link href="/pet/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
-    <link href="/pet/public/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
-    <link href="/pet/public/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/pets/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
+    <link href="/pets/public/themes/admin_simpleboot3/public/assets/simpleboot3/css/simplebootadmin.css" rel="stylesheet">
+    <link href="/pets/public/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -49,15 +49,15 @@
     <script type="text/javascript">
         //全局变量
         var GV = {
-            ROOT: "/pet/public/",
-            WEB_ROOT: "/pet/public/",
+            ROOT: "/pets/public/",
+            WEB_ROOT: "/pets/public/",
             JS_ROOT: "static/js/",
             APP: '<?php echo \think\Request::instance()->module(); ?>'/*当前应用名*/
         };
     </script>
-    <script src="/pet/public/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
-    <script src="/pet/public/static/js/wind.js"></script>
-    <script src="/pet/public/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
+    <script src="/pets/public/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
+    <script src="/pets/public/static/js/wind.js"></script>
+    <script src="/pets/public/themes/admin_simpleboot3/public/assets/js/bootstrap.min.js"></script>
     <script>
         Wind.css('artDialog');
         Wind.css('layer');
@@ -114,7 +114,7 @@
 
 </style>
 <?php 
-    \think\Hook::listen('admin_before_head_end',$temp5b17ab756ed35,null,false);
+    \think\Hook::listen('admin_before_head_end',$temp5b17f42874395,null,false);
  ?>
 </head>
 <body>
@@ -150,7 +150,7 @@
                 <div class="panel-body home-info">
                     <ul id="thinkcmf-notices" class="list-unstyled">
                         <li>
-                            <img src="/pet/public/themes/admin_simpleboot3/public/assets/images/loading.gif" style="vertical-align: middle;"/>
+                            <img src="/pets/public/themes/admin_simpleboot3/public/assets/images/loading.gif" style="vertical-align: middle;"/>
                             <span style="display: inline-block; vertical-align: middle;">加载中...</span>
                         </li>
                     </ul>
@@ -161,7 +161,7 @@
 
 
 </div>
-<script src="/pet/public/static/js/admin.js"></script>
+<script src="/pets/public/static/js/admin.js"></script>
 <?php 
     $lang_set=defined('LANG_SET')?LANG_SET:'';
     $thinkcmf_version=defined('THINKCMF_VERSION')?THINKCMF_VERSION:'';
@@ -269,7 +269,7 @@
 
 </script>
 <?php 
-    \think\Hook::listen('admin_before_body_end',$temp5b17ab756ed35,null,false);
+    \think\Hook::listen('admin_before_body_end',$temp5b17f428743b1,null,false);
  ?>
 </body>
 </html>

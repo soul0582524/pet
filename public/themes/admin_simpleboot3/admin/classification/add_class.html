@@ -19,13 +19,15 @@
 
         <div style="margin-top: 10px;">
             请选择分类：
-            <select id="pid">
-                <option value="0" style="width: 200px; height: 34px;">--为一级分类---</option>
+            <select id="pid" >
+                <option value="0" class="select">--为一级分类--</option>
                 <foreach name = "list" item = "vo">
                     <option value="{$vo.id}">{$vo.name}</option>
 
                 </foreach>
             </select>
+
+
         </div>
 
         <div style="margin-top: 20px; margin-left: 80px;">
@@ -39,8 +41,9 @@
 <script src="__STATIC__/js/admin.js"></script>
 <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/js/layerconfig.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/admin.js"></script>
 <script type="text/javascript">
-
+    var getNextClassUrl = '{:url("common/Common/getNextClass")}';
     /**
     * 添加分类
     */

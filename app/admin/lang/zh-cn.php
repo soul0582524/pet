@@ -11,6 +11,7 @@
 return [
     'ADMIN_NAME'                         => '宠我',
     'ADMIN_CENTER'                       => '宠我 后台管理中心',
+    'CHANGE'                             => '修改',
     'WORD'                               => '词语',
     'WELCOME_USER'                       => '欢迎, {:user_nickname}',
     'REFRESH_CURRENT_PAGE'               => '刷新当前页面',

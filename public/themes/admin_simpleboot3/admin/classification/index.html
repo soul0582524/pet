@@ -37,25 +37,45 @@
             </thead>
             <tbody>
                 <foreach name="list" item="vo">
-                    <tr>
-                        <td>{$vo.id}</td>
-                        <td>
-                            <if condition = "$vo.level == 1">
-                                一级分类
-                            <elseif condition = "$vo.level == 2">    
-                                二级分类
-                            </if>
-                        </td>
-                        <td>{$vo['name']}</td>
-                        <td>
-                            <if condition = "$vo.level neq 1">
-                                {$vo.pname}
-                            </if>
-                        </td>
-                        <td>
-                            <a href="javascript:cancel({$vo.id})" class="abutton">删除分类</a>
-                        </td>
-                    </tr>
+                    
+
+
+                    <if condition = "$vo.level == 1">
+                        <tr style="background-color: #ddd;">
+                            <td>{$vo.id}</td>
+                            <td>一级分类</td>
+                            <td>{$vo['name']}</td>
+                            <td>
+                                <if condition = "$vo.level neq 1">
+                                    {$vo.pname}
+                                </if>
+                            </td>
+                            <td>
+                                <a href="{:url('admin/Classification/detail',array('id' =>$vo.id))}" class="abutton">详情</a>
+                                &nbsp;|&nbsp;
+                                <a href="javascript:cancel({$vo.id})" class="abutton">删除</a>
+                            </td>
+                        </tr>
+                    <elseif condition = "$vo.level == 2">    
+                        <tr>
+                            <td>{$vo.id}</td>
+                            <td>二级分类</td>
+                            <td>{$vo['name']}</td>
+                            <td>
+                                <if condition = "$vo.level neq 1">
+                                    {$vo.pname}
+                                </if>
+                            </td>
+                            <td>
+                                <a href="{:url('admin/Classification/detail',array('id' =>$vo.id))}" class="abutton">详情</a>
+                                &nbsp;|&nbsp;
+                                <a href="javascript:cancel({$vo.id})" class="abutton">删除</a>
+                            </td>
+                        </tr>
+                    </if>
+
+
+
                 </foreach>
            
             </tbody>

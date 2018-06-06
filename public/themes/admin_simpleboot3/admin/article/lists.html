@@ -8,14 +8,25 @@
         <li class="active"><a>文章列表</a></li>
         <li><a href="{:url('admin/Article/add')}">添加文章</a></li>
     </ul>
-    <form class="well form-inline margin-top-20" method="post" action="{:url('Admin/BlackWords/index')}">
-
+    <form class="well form-inline margin-top-20" method="post" action="{:url('Admin/Article/lists')}">
+        一级分类：
+        <select name="classi" class="select" id="classi" onchange="getNextClass()">
+            <option value="0">请选择分类</option>
+            <foreach name = "classi" item = "vo">
+                <option value="{$vo.id}">{$vo.name}</option>
+            </foreach>
+       </select>
+       &nbsp;&nbsp;&nbsp;
+        二级分类：
+        <select name="class2" class="select" id="class2">
+            <option value="0">请选择二级分类</option>
+        </select>
         标题：
-        <input class="form-control" type="text" name="title" style="width: 200px;" value="{:input('request.words')}" placeholder="标题">
+        <input class="form-control" type="text" name="title" style="width: 200px;" value="{:input('request.title')}" placeholder="标题">
         &nbsp;
 
         <input type="submit" class="btn btn-primary" value="搜索"/>
-        <a class="btn btn-danger" href="{:url('Admin/BlackWords/index')}">清空</a>
+        <a class="btn btn-danger" href="{:url('Admin/Article/lists')}">清空</a>
 
         <input type="button" class="btn btn-primary" value="添加" onclick="add()">
     </form>
@@ -43,7 +54,19 @@
                         <th class="tablecenter">{$vo.abstract}</th>
                         <th class="tablecenter">{$vo.add_time}</th>
                         <th class="tablecenter">{$vo.release_time}</th>
-                        <th class="tablecenter">{:lang('ACTIONS')}</th>
+                        <th class="tablecenter">
+                            <a href="{:url('Admin/Article/detail',array('id' => $vo.id))}">详情</a>
+                            &nbsp;|&nbsp;
+                            <if condition = "$vo.is_release eq 2">
+                                <a href="javascript:release({$vo.id}, 1)">发布</a>
+                            <else/>
+                                <a href="javascript:release({$vo.id}, 2)">撤销</a>
+                            </if>
+                            &nbsp;|&nbsp;
+                            <a href="javascript:del({$vo.id})">删除</a>
+                            &nbsp;|&nbsp;
+                            <a href="">引导页推荐</a>
+                        </th>
                     </tr>
                 </foreach>
             </tbody>
@@ -54,12 +77,55 @@
 <script src="__STATIC__/js/admin.js"></script>
 <script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
 <script type="text/javascript" src="__STATIC__/admin/js/layerconfig.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/admin.js"></script>
 <script type="text/javascript">
 
-
+    var getNextClassUrl = '{:url("common/Common/getNextClass")}';
 
     function add(){
         window.location.href = "{:url('admin/Article/add')}";
+    }
+
+    /**
+    * 发布和取消发布
+    * @param id   文章id
+    * @param type type 1发布  2取消
+    */
+    function release(id, type){
+        $.ajax({
+            url: '{:url("Article/release")}',
+            type: 'POST',
+            dataType: 'json',
+            data: {"id":id, "type":type},
+            success:function(res){
+                layer.msg(res.msg);
+                setTimeout(function(){
+                    window.location.reload(); 
+                },2000);
+            }
+        })
+        
+    }
+
+    /**
+    * 删除文章
+    * @param id 文章id
+    */
+    function del(id){
+        layer.confirm('确定要删除该文章吗？',function(){
+            $.ajax({
+                url: '{:url("Article/del")}',
+                type: 'POST',
+                dataType: 'json',
+                data: {"id":id},
+                success:function(res){
+                    layer.msg(res.msg);
+                    setTimeout(function(){
+                        window.location.reload(); 
+                    },2000);
+                }
+            })
+        });
     }
 </script>
 </body>

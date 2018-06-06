@@ -99,7 +99,7 @@ class ClassificationController extends AdminBaseController{
 
 		$model = new ClassificationModel();
 		//查询所有一级分类
-		$where['pid']    = array('eq', 0);
+		$where['level']  = array('eq', 1);
 		$where['status'] = array('eq', 1);
 		$field = 'id, name';
 
@@ -134,6 +134,71 @@ class ClassificationController extends AdminBaseController{
 			$data['msg']  = '删除分类成功';
 		}
 		echo json_encode($data);
+	}
+
+
+	/**
+	* 分类详情页
+	* @param id 分类id
+	*/
+	public function detail(){
+		//获取参数
+		$request = Request::instance();
+		$param   = $request ->param();
+
+		$where['id'] = $param['id'];  //获取id
+		$field   = 'id, name, pid';
+
+		$model   = new ClassificationModel(); //实例化表
+		$detail  = $model ->findClass($where, $field);
+
+		$this ->assign('detail', $detail);
+
+		unset($where);
+		unset($field);
+		//查询所有一级分类
+		$where['level']  = array('eq', 1);
+		$where['status'] = array('eq', 1);
+		$field = 'id, name';
+
+
+		$list = $model ->selectClass($where, $field);
+
+		$this ->assign('list', $list);
+
+		return $this ->fetch();
+
+	}
+
+	/**
+	* 修改分类
+	* @param id 分类Id
+	* @apram name 分类名称
+	* @param pid  所属分类
+	*/
+	public function changeDetail(){
+		//获取参数
+		$request = Request::instance();
+		$param   = $request ->param();
+
+		$where['id'] = $param['id'];  //获取id
+
+		$save['name']= trim($param['name']);
+		$save['pid'] = $param['pid'];
+
+		$model   = new ClassificationModel(); //实例化表
+
+		$result  = $model ->setFieldClass($where, $save);
+
+		if ($result === false) {
+			$data['code'] = 2;
+			$data['msg']  = '修改分类失败';
+		}else{
+			$data['code'] = 1;
+			$data['msg']  = '修改分类成功';
+		}
+		echo json_encode($data);
+
 	}
 }
 ?>

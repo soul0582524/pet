@@ -23,7 +23,22 @@ class CommonController extends Controller{
 		$request = Request::instance();
 		$param   = $request ->param();
 
-		dump($param);
+		$model   = new ClassificationModel();
+		$where['pid']   = $param['pid'];
+		$where['level'] = 2;
+		$where['status']= 1;
+
+		$field   = 'id ,name';
+		$result  = $model ->selectClass($where, $field);
+
+
+		if ($result ->isEmpty()) {
+			$data['status'] = 2;
+		}else{
+			$data['status'] = 1;
+			$data['data']   = $result;
+		}
+		echo json_encode($data);
 	}
 
 }

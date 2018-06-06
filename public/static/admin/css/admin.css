@@ -13,3 +13,8 @@
 .tablecenter{
     text-align: center;
 }
+
+.select{
+    height: 34px; 
+    width: 200px;
+}
