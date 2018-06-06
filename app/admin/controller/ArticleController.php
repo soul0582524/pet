@@ -34,11 +34,6 @@ class ArticleController extends AdminBaseController{
 			if (!empty($list[$key]['release_time'])) {
 				$list[$key]['release_time'] = date('Y-m-d H:i:s', $value['release_time']);
 			}
-
-			if (mb_strlen($value['abstract']) > 10) {
-				$abstract = mb_substr($value['abstract'], 0,10);
-				$list[$key]['abstract'] = $abstract.'……';
-			}
 			
 		}
 		$this ->assign('list', $list);
@@ -56,12 +51,12 @@ class ArticleController extends AdminBaseController{
 
 		$classification = new ClassificationModel();
 		//查询所有一级分类
-		$where['pid']    = 0;
+		$where['level']  = 1;
 		$where['status'] = 1;
 		$field = 'id, name';
 
 		$classi = $classification ->selectClass($where, $field);
-
+		
 		$this ->assign('classi', $classi);
 		return $this ->fetch();
 	}

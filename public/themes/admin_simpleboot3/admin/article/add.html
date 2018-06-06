@@ -19,7 +19,7 @@
                     <tr>
                         <th width="100">分类<span class="form-required">*</span></th>
                         <td>
-                           <select name="classi" id="classi">
+                           <select name="classi" id="classi" onchange="getNextClass()">
                                <option value="0" style="height: 34px; width: 200px;">请选择分类</option>
                                <foreach name = "classi" item = "vo">
                                     <option value="{$vo.id}">{$vo.name}</option>
@@ -43,7 +43,8 @@
                     <tr>
                         <th>摘要</th>
                         <td>
-                            <textarea class="form-control" name="post[post_excerpt]" style="height: 50px;" id="abstract" placeholder="请填写摘要"></textarea>
+                            <textarea class="form-control" name="post[post_excerpt]" style="height: 50px;" id="abstract" placeholder="请填写摘要 限八十字以内" maxlength="80"></textarea>
+
                         </td>
                     </tr>
                     <tr>
@@ -134,6 +135,31 @@
         })
 
         
+    }
+
+    /**
+    * 获得下级分类
+    */
+    function getNextClass(){
+        var pid = $('#classi').val();
+        if (pid != 0) {
+            $.ajax({
+                url: '{:url("common/Common/getNextClass")}',
+                type: 'POST',
+                dataType: 'json',
+                data: {'pid':pid},
+                success:function(res){
+                    /*layer.msg(res.msg);
+                    setTimeout(function(){
+                        if (res.code == 1) {
+                            window.location.href = "{:url('admin/Article/lists')}"
+                        }else if (res.code == 2) {
+                            window.location.reload();
+                        }
+                    },2000);*/
+                }
+            })
+        }
     }
 
 </script>

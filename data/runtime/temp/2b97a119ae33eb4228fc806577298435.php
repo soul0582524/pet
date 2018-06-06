@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:49:"themes/admin_simpleboot3/admin\article\lists.html";i:1528084984;s:70:"D:\phpStudy\WWW\pet\public\themes\admin_simpleboot3\public\header.html";i:1528084984;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:49:"themes/admin_simpleboot3/admin\article\lists.html";i:1528277804;s:70:"D:\phpStudy\WWW\pet\public\themes\admin_simpleboot3\public\header.html";i:1528084984;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,7 +108,7 @@
                     <th class="tablecenter">分类</th>
                     <th class="tablecenter">标题</th>
                     <th class="tablecenter">来源</th>
-                    <th class="tablecenter">摘要</th>
+                    <th class="tablecenter" width="500px;">摘要</th>
                     <th class="tablecenter">添加时间</th>
                     <th class="tablecenter">发布时间</th>
                     <th class="tablecenter"><?php echo lang('ACTIONS'); ?></th>
@@ -137,53 +137,10 @@
 <script type="text/javascript" src="/pet/public/static/admin/js/layerconfig.js"></script>
 <script type="text/javascript">
 
-    //取消黑词
-    function cancel(id){
-        layer.confirm('确定要取消该黑词设定吗？',function(){
-            var url = "<?php echo url('Admin/BlackWords/cancel'); ?>";
 
-            $.ajax({
-                url: url,
-                type: 'POST',
-                dataType: 'json',
-                data: {'id': id},
-                success:function(res){
-                    layer.msg(res.msg);
-                    if (res.code == 1) {
-                        setTimeout(function(){
-                            window.location.reload();
-                        },2000)
-                    }
-                    
-                }
-            })
-            
-            
-        })
-    }
 
     function add(){
-        layer.prompt({
-            formType: 2,
-            title: '请输入黑词',
-            area: ['400px', '50px'] //自定义文本域宽高
-        }, function(value, index, elem){
-            $.ajax({
-                url: "<?php echo url('Admin/BlackWords/addWords'); ?>",
-                type: 'POST',
-                dataType: 'json',
-                data: {'value': value},
-                success:function(res){
-                    layer.msg(res.msg);
-                    if (res.code == 1) {
-                        setTimeout(function(){
-                            window.location.reload();
-                        },2000)
-                    }
-                    
-                }
-            })
-        });
+        window.location.href = "<?php echo url('admin/Article/add'); ?>";
     }
 </script>
 </body>
