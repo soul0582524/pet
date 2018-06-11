@@ -285,5 +285,17 @@ class ArticleController extends AdminBaseController{
 		}
 		echo json_encode($data);
 	}
+
+
+	public function nav(){
+		//获取参数
+		$request = Request::instance();
+		$param   = $request ->param();
+
+		$id      = $param['id'];
+
+		$this ->assign('id', $id);
+		return $this ->fetch();
+	}
 }
 ?>

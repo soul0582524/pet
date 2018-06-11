@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:49:"themes/admin_simpleboot3/admin\article\lists.html";i:1528295002;s:71:"D:\phpStudy\WWW\pets\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:49:"themes/admin_simpleboot3/admin\article\lists.html";i:1528603960;s:71:"D:\phpStudy\WWW\pets\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,6 +83,7 @@
 </head>
 <link rel="stylesheet" type="text/css" href="/pets/public/static/admin/css/layerconfig.css">
 <link rel="stylesheet" type="text/css" href="/pets/public/static/admin/css/admin.css">
+<link rel="stylesheet" href="/static/build/layui.css" media="all">
 <body>
 <div class="wrap">
     <ul class="nav nav-tabs">
@@ -146,7 +147,7 @@
                             &nbsp;|&nbsp;
                             <a href="javascript:del(<?php echo $vo['id']; ?>)">删除</a>
                             &nbsp;|&nbsp;
-                            <a href="">引导页推荐</a>
+                            <a href="javascript:nav(<?php echo $vo['id']; ?>)">引导页推荐</a>
                         </th>
                     </tr>
                 <?php endforeach; endif; else: echo "" ;endif; ?>
@@ -208,6 +209,27 @@
             })
         });
     }
+
+
+    /**
+    * 引导推荐
+    * @param id 文章id
+    */
+    function nav(id){
+        var url = "<?php echo url('Article/nav',array('id'=> 'sss')); ?>";
+        
+        var urls = url.replace('sss',id);
+        console.log(urls);
+        layer.open({
+            type:2,
+            title:"设置引导页图片",
+            content:urls,
+            area:['80%', '80%'],
+            
+        });
+    }
+
+
 </script>
 </body>
 </html>
