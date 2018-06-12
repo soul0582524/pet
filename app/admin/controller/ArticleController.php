@@ -299,7 +299,6 @@ class ArticleController extends AdminBaseController{
 
 		$nav_article = new NavArticleModel();
 
-
 		$result      = $nav_article ->insertArticle($add);
 
 
