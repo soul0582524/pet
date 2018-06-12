@@ -1,0 +1,176 @@
+<include file="public@header"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/layerconfig.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/admin.css">
+<style type="text/css">
+    .pic-list li {
+        margin-bottom: 5px;
+    }
+
+    
+</style>
+
+</head>
+<body>
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('Article/lists')}">文章管理</a></li>
+        <li class="active"><a>文章详情</a></li>
+    </ul>
+    <form class="form-horizontal js-ajax-form margin-top-20">
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="100">分类<span class="form-required">*</span></th>
+                        <td>
+                           <select name="classi" class="select" id="classi" onchange="getNextClass()">
+                               <option value="0">请选择分类</option>
+                               <foreach name = "classi" item = "vo">
+                                    <if condition = "$vo.id eq $detail.classi">
+                                        <option value="{$vo.id}" selected="selected">{$vo.name}</option>
+                                    <else/>
+                                        <option value="{$vo.id}">{$vo.name}</option>
+                                    </if>
+                               </foreach>
+                           </select>
+
+                           <select id="class2" class="select">
+                               <option value="0">请选择二级分类</option>
+                               <foreach name = "classii" item = "vo">
+                                    <if condition = "$vo.id eq $detail.classii">
+                                        <option value="{$vo.id}" selected="selected">{$vo.name}</option>
+                                    <else/>
+                                        <option value="{$vo.id}">{$vo.name}</option>
+                                    </if>
+                               </foreach>
+                           </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>标题<span class="form-required">*</span></th>
+                        <td>
+                            <input class="form-control" type="text" name="post[post_title]"
+                                   id="title" required value="{$detail.title}" placeholder="请输入标题"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>文章来源</th>
+                        <td><input class="form-control" type="text" name="post[post_source]" id="source" value="{$detail.source}" placeholder="请输入文章来源"></td>
+                    </tr>
+                    <tr>
+                        <th>摘要</th>
+                        <td>
+                            <textarea class="form-control" name="post[post_excerpt]" style="height: 50px;" id="abstract" placeholder="请填写摘要 限八十字以内" maxlength="80" >{$detail.abstract}</textarea>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>内容</th>
+                        <td>
+                            <script type="text/plain" id="content" name="post[post_content]" style="height: 400px;"></script>
+                        </td>
+                    </tr>
+                   
+                </table>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-primary js-ajax-submit" onclick = "changeDetail()">{:lang('CHANGE')}</button >
+                        <a class="btn btn-default" href="{:url('Article/lists')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </div>
+
+            <textarea style=" display: none" id="detail">{$detail.content}</textarea>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript">
+    //编辑器路径定义
+    var editorURL = GV.WEB_ROOT;
+</script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/js/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/layerconfig.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/admin.js"></script>
+<script type="text/javascript">
+    var detail = $('#detail').val();
+    var getNextClassUrl = '{:url("common/Common/getNextClass")}';
+
+    $(function () {
+
+        editorcontent = new baidu.editor.ui.Editor();
+        editorcontent.render('content');
+        editorcontent.ready(function(){
+            editorcontent.setContent(detail);
+        });
+        try {
+            editorcontent.sync();
+        } catch (err) {
+
+        }
+        
+
+    });
+
+
+    /**
+    * 添加
+    */
+    function changeDetail(){
+        //文章id
+        var id = "{$detail.id}";
+        //获得分类
+        var classi = $('#classi').val();
+        if (classi == 0) {
+            layer.msg('请选择文章分类');
+            return false;
+        }
+        //获得二级分类
+        var class2 = $('#class2').val();
+        //获得标题
+        var title  = $('#title').val();
+        if (title == '') {
+            layer.msg('请输入文章标题');
+            return false;
+        } 
+        //获得来源
+        var source = $('#source').val();
+        //摘要
+        var abstract = $('#abstract').val();
+        //文章内容
+        var content = editorcontent.getContent();
+        if (content == '') {
+            layer.msg('请输入文章内容');
+            return false;
+        }
+
+        var param = {"id":id, "classi":classi, "class2":class2,"title":title, "source":source, "abstract":abstract, "content":content};
+
+        $.ajax({
+            url: '{:url("Article/changeDetail")}',
+            type: 'POST',
+            dataType: 'json',
+            data: param,
+            success:function(res){
+                layer.msg(res.msg);
+                setTimeout(function(){
+                    if (res.code == 1) {
+                        window.location.href = "{:url('admin/Article/lists')}"
+                    }else if (res.code == 2) {
+                        window.location.reload();
+                    }
+                },2000);
+            }
+        })
+
+        
+    }
+
+
+
+</script>
+</body>
+</html>

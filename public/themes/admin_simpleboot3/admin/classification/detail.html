@@ -1,0 +1,87 @@
+<include file="public@header"/>
+</head>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/layerconfig.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/admin.css">
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('admin/Classification/index')}">分类列表</a></li>
+        <li class="active"><a>分类详情</a></li>
+ 
+    </ul>
+    <form class="well form-inline margin-top-20" >
+        <div>
+            分类名称：&nbsp;&nbsp;&nbsp;&nbsp;
+            <input class="form-control" type="text" id="name" style="width: 200px;" value="{$detail.name}" placeholder="请输入分类名称">
+        </div>
+        
+        <br/>
+
+        <div style="margin-top: 10px;">
+            请选择分类：
+            <select id="pid" >
+                <option value="0" class="select">--为一级分类--</option>
+                <foreach name = "list" item = "vo">
+                    <if condition = "$detail.pid eq $vo.id">
+                        <option value="{$vo.id}" selected="selected">{$vo.name}</option>
+                    <else/>
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    </if>
+                </foreach>
+            </select>
+
+
+        </div>
+
+        <div style="margin-top: 20px; margin-left: 80px;">
+            <input type="button" class="btn btn-primary" value="{:lang('CHANGE')}" onclick="changeDetail()" />
+
+            <input type="button" class="btn" value="返回" style="border: 1px solid black; margin-left: 5px;" onclick="back()">
+        </div>
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/layerconfig.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/admin.js"></script>
+<script type="text/javascript">
+    var getNextClassUrl = '{:url("common/Common/getNextClass")}';
+    /**
+    * 添加分类
+    */
+    function changeDetail(){
+        var id   = "{$detail.id}";
+        var name = $('#name').val();
+        if (name == '') {
+            layer.msg('请输入分类名称');
+            return false;
+        }
+        var pid  = $('#pid').val();
+
+         $.ajax({
+             url: "{:url('admin/Classification/changeDetail')}",
+             type: 'POST',
+             dataType: 'json',
+             data: {"name": name, "pid": pid, "id":id},
+             success:function(res){
+                layer.msg(res.msg);
+                setTimeout(function(){
+                    if (res.code == 1) {
+                        window.location.href = "{:url('admin/Classification/index')}";
+                    }else{
+                        window.location.reload();
+                    }
+                },2000)
+             }
+         });
+         
+    }
+
+
+    function back(){
+        window.location.href = "{:url('admin/Classification/index')}";
+    }
+</script>
+</body>
+</html>
