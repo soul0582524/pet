@@ -8,6 +8,7 @@ namespace app\admin\controller;
 use cmf\controller\AdminBaseController;
 use app\common\model\ArticleModel;
 use app\common\model\ClassificationModel;
+use app\common\model\NavArticleModel;
 use think\Db;
 use think\Route;
 use think\Request;
@@ -289,13 +290,27 @@ class ArticleController extends AdminBaseController{
 
 	public function nav(){
 		//获取参数
-		$request = Request::instance();
-		$param   = $request ->param();
+		$request    = Request::instance();
+		$param      = $request ->param();
 
-		$id      = $param['id'];
+		$add['article_id']    = $param['id'];
+		$add['article_title'] = $param['title'];
+		$add['add_time']      = time();
 
-		$this ->assign('id', $id);
-		return $this ->fetch();
+		$nav_article = new NavArticleModel();
+
+
+		$result      = $nav_article ->insertArticle($add);
+
+
+		if ($result === false) {
+			$data['code'] = 2;
+			$data['msg']  = '设置失败';
+		}else{
+			$data['code'] = 1;
+			$data['msg']  = '设置成功';
+		}
+		echo json_encode($data);
 	}
 }
 ?>
