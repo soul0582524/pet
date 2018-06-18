@@ -2,7 +2,6 @@
 </head>
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/layerconfig.css">
 <link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/admin.css">
-<link rel="stylesheet" href="/static/build/layui.css" media="all">
 <body>
 <div class="wrap">
     <ul class="nav nav-tabs">
@@ -72,7 +71,9 @@
                 </foreach>
             </tbody>
         </table>
-        <div class="pagination"></div>
+        <div class="pagination">
+            {$page}
+        </div>
     </form>
 </div>
 <script src="__STATIC__/js/admin.js"></script>

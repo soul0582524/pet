@@ -2034,3 +2034,405 @@
 [ sql ] [ SQL ] SHOW COLUMNS FROM `pet_admin_menu` [ RunTime:0.063155s ]
 [ sql ] [ SQL ] SELECT * FROM `pet_admin_menu` ORDER BY `list_order` ASC [ RunTime:0.056446s ]
 [ sql ] [ SQL ] SELECT `option_value` FROM `pet_option` WHERE  `option_name` = 'admin_settings' LIMIT 1 [ RunTime:0.039014s ]
+---------------------------------------------------------------
+[ 2018-06-12T22:23:10+08:00 ] 127.0.0.1 GET /pets/public/admin/article/lists.html
+[ info ] 127.0.0.1/pets/public/admin/article/lists.html [运行时间：1.415955s][吞吐率：0.71req/s] [内存消耗：2,961.20kb] [文件加载：79]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.009066s ]
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\simplewind\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'article',
+    2 => 'lists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'cookie' => 'thinkphp_show_page_trace=0|0; DUYL_2132_saltkey=tsaACafa; DUYL_2132_lastvisit=1526900871; DUYL_2132_ulastactivity=0785ozJmbPHBV1hP0RAkg%2Fb8Pyg6lPDQL2O%2BDTHTnaNXdc0GiEfK; DUYL_2132_lastcheckfeed=1%7C1526904547; DUYL_2132_nofavfid=1; DUYL_2132_home_readfeed=1526904729; admin_username=liyang; PHPSESSID=k5h1792kqf8n6bm3gpatdsbct1',
+  'referer' => 'http://127.0.0.1/pets/public/admin/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../simplewind/cmf/lang\zh-cn.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\common.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/portal\lang\zh-cn\common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.009694s ]
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\admin_menu.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\admin.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/user\lang\zh-cn\admin_menu.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.005306s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\ArticleController->lists[ D:\phpStudy\WWW\pets\app\admin\controller\ArticleController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/admin\article\lists.html [ array (
+  0 => 'admin',
+  1 => 'list',
+  2 => 'page',
+  3 => 'classi',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.048951s ] mysql:host=47.92.124.165;port=3306;dbname=pet;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_option` [ RunTime:0.029337s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `pet_option` WHERE  `option_name` = 'cdn_settings' LIMIT 1 [ RunTime:0.031228s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_user` [ RunTime:0.255289s ]
+[ sql ] [ SQL ] SELECT * FROM `pet_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.150883s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_article` [ RunTime:0.151884s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `pet_article` `a`,`pet_classification` `c` WHERE  (  a.classi = c.id AND a.is_status = 1 ) LIMIT 1 [ RunTime:0.029027s ]
+[ sql ] [ SQL ] SELECT a.id, a.title, a.source, a.abstract, FROM_UNIXTIME(a.add_time) AS add_time, FROM_UNIXTIME(a.release_time) AS release_time, c.name, a.is_release FROM `pet_article` `a`,`pet_classification` `c` WHERE  (  a.classi = c.id AND a.is_status = 1 ) ORDER BY `a`.`id` DESC LIMIT 0,10 [ RunTime:0.153277s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_classification` [ RunTime:0.148772s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `pet_classification` WHERE  `level` = 1  AND `status` = 1 [ RunTime:0.154724s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `pet_option` WHERE  `option_name` = 'admin_settings' LIMIT 1 [ RunTime:0.100916s ]
+---------------------------------------------------------------
+[ 2018-06-12T22:23:11+08:00 ] 127.0.0.1 GET /pets/public/admin/article/add.html
+[ info ] 127.0.0.1/pets/public/admin/article/add.html [运行时间：0.593181s][吞吐率：1.69req/s] [内存消耗：2,877.48kb] [文件加载：76]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.012136s ]
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\simplewind\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'article',
+    2 => 'add',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'cookie' => 'thinkphp_show_page_trace=0|0; DUYL_2132_saltkey=tsaACafa; DUYL_2132_lastvisit=1526900871; DUYL_2132_ulastactivity=0785ozJmbPHBV1hP0RAkg%2Fb8Pyg6lPDQL2O%2BDTHTnaNXdc0GiEfK; DUYL_2132_lastcheckfeed=1%7C1526904547; DUYL_2132_nofavfid=1; DUYL_2132_home_readfeed=1526904729; admin_username=liyang; PHPSESSID=k5h1792kqf8n6bm3gpatdsbct1',
+  'referer' => 'http://127.0.0.1/pets/public/admin/article/lists.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../simplewind/cmf/lang\zh-cn.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\common.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/portal\lang\zh-cn\common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.007526s ]
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\admin_menu.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\admin.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/user\lang\zh-cn\admin_menu.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.003554s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\ArticleController->add[ D:\phpStudy\WWW\pets\app\admin\controller\ArticleController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/admin\article\add.html [ array (
+  0 => 'admin',
+  1 => 'classi',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.046675s ] mysql:host=47.92.124.165;port=3306;dbname=pet;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_option` [ RunTime:0.142790s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `pet_option` WHERE  `option_name` = 'cdn_settings' LIMIT 1 [ RunTime:0.027814s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_user` [ RunTime:0.030428s ]
+[ sql ] [ SQL ] SELECT * FROM `pet_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.031367s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_classification` [ RunTime:0.035036s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `pet_classification` WHERE  `level` = 1  AND `status` = 1 [ RunTime:0.039773s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `pet_option` WHERE  `option_name` = 'admin_settings' LIMIT 1 [ RunTime:0.047726s ]
+---------------------------------------------------------------
+[ 2018-06-12T22:23:12+08:00 ] 127.0.0.1 GET /pets/public/user/Ueditor/upload?action=config&&noCache=1528813392230
+[ info ] 127.0.0.1/pets/public/user/Ueditor/upload?action=config&&noCache=1528813392230 [运行时间：0.356571s][吞吐率：2.80req/s] [内存消耗：2,281.58kb] [文件加载：60]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.004442s ]
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\simplewind\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'user',
+    1 => 'Ueditor',
+    2 => 'upload',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'cookie' => 'DUYL_2132_saltkey=tsaACafa; DUYL_2132_lastvisit=1526900871; DUYL_2132_ulastactivity=0785ozJmbPHBV1hP0RAkg%2Fb8Pyg6lPDQL2O%2BDTHTnaNXdc0GiEfK; DUYL_2132_lastcheckfeed=1%7C1526904547; DUYL_2132_nofavfid=1; DUYL_2132_home_readfeed=1526904729; admin_username=liyang; PHPSESSID=k5h1792kqf8n6bm3gpatdsbct1',
+  'referer' => 'http://127.0.0.1/pets/public/admin/article/add.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+  'accept' => '*/*',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+  'action' => 'config',
+  'noCache' => '1528813392230',
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../simplewind/cmf/lang\zh-cn.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\common.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/portal\lang\zh-cn\common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.002298s ]
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/user\lang\zh-cn.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\user\controller\UeditorController->upload[ D:\phpStudy\WWW\pets\app\user\controller\UeditorController.php ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.047958s ] mysql:host=47.92.124.165;port=3306;dbname=pet;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_option` [ RunTime:0.034971s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `pet_option` WHERE  `option_name` = 'cdn_settings' LIMIT 1 [ RunTime:0.030028s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `pet_option` WHERE  `option_name` = 'upload_setting' LIMIT 1 [ RunTime:0.034541s ]
+---------------------------------------------------------------
+[ 2018-06-12T22:23:14+08:00 ] 127.0.0.1 POST /pets/public/common/common/getnextclass.html
+[ info ] 127.0.0.1/pets/public/common/common/getnextclass.html [运行时间：0.212810s][吞吐率：4.70req/s] [内存消耗：2,499.17kb] [文件加载：61]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.002564s ]
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\simplewind\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'common',
+    1 => 'common',
+    2 => 'getnextclass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'cookie' => 'DUYL_2132_saltkey=tsaACafa; DUYL_2132_lastvisit=1526900871; DUYL_2132_ulastactivity=0785ozJmbPHBV1hP0RAkg%2Fb8Pyg6lPDQL2O%2BDTHTnaNXdc0GiEfK; DUYL_2132_lastcheckfeed=1%7C1526904547; DUYL_2132_nofavfid=1; DUYL_2132_home_readfeed=1526904729; admin_username=liyang; PHPSESSID=k5h1792kqf8n6bm3gpatdsbct1',
+  'content-length' => '5',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'referer' => 'http://127.0.0.1/pets/public/admin/article/add.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+  'pid' => '1',
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../simplewind/cmf/lang\zh-cn.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\common.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/portal\lang\zh-cn\common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.001593s ]
+[ info ] [ RUN ] app\common\controller\CommonController->getNextClass[ D:\phpStudy\WWW\pets\app\common\controller\CommonController.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.045678s ] mysql:host=47.92.124.165;port=3306;dbname=pet;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_classification` [ RunTime:0.031983s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `pet_classification` WHERE  `pid` = 1  AND `level` = 2  AND `status` = 1 [ RunTime:0.046771s ]
+---------------------------------------------------------------
+[ 2018-06-12T22:35:20+08:00 ] 127.0.0.1 GET /pets/public/admin/article/lists.html
+[ info ] 127.0.0.1/pets/public/admin/article/lists.html [运行时间：0.708486s][吞吐率：1.41req/s] [内存消耗：2,961.20kb] [文件加载：79]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.003689s ]
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\simplewind\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'admin',
+    1 => 'article',
+    2 => 'lists',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'upgrade-insecure-requests' => '1',
+  'connection' => 'close',
+  'cookie' => 'thinkphp_show_page_trace=0|0; DUYL_2132_saltkey=tsaACafa; DUYL_2132_lastvisit=1526900871; DUYL_2132_ulastactivity=0785ozJmbPHBV1hP0RAkg%2Fb8Pyg6lPDQL2O%2BDTHTnaNXdc0GiEfK; DUYL_2132_lastcheckfeed=1%7C1526904547; DUYL_2132_nofavfid=1; DUYL_2132_home_readfeed=1526904729; admin_username=liyang; PHPSESSID=k5h1792kqf8n6bm3gpatdsbct1',
+  'referer' => 'http://127.0.0.1/pets/public/admin/index/index.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+  'accept' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../simplewind/cmf/lang\zh-cn.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\common.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/portal\lang\zh-cn\common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.001736s ]
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn.php
+[ info ] [ DB ] INIT mysql
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\admin_menu.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\admin.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/user\lang\zh-cn\admin_menu.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../data/lang/zh-cn/admin_menu.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\AdminLangBehavior @admin_init [ RunTime:0.003034s ]
+[ info ] [ SESSION ] INIT array (
+  'id' => '',
+  'var_session_id' => '',
+  'prefix' => 'think',
+  'type' => '',
+  'auto_start' => true,
+)
+[ info ] [ RUN ] app\admin\controller\ArticleController->lists[ D:\phpStudy\WWW\pets\app\admin\controller\ArticleController.php ]
+[ info ] [ VIEW ] themes/admin_simpleboot3/admin\article\lists.html [ array (
+  0 => 'admin',
+  1 => 'list',
+  2 => 'page',
+  3 => 'classi',
+) ]
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.102928s ] mysql:host=47.92.124.165;port=3306;dbname=pet;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_option` [ RunTime:0.041072s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `pet_option` WHERE  `option_name` = 'cdn_settings' LIMIT 1 [ RunTime:0.054915s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_user` [ RunTime:0.046487s ]
+[ sql ] [ SQL ] SELECT * FROM `pet_user` WHERE  `id` = 1 LIMIT 1 [ RunTime:0.047751s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_article` [ RunTime:0.089075s ]
+[ sql ] [ SQL ] SELECT COUNT(*) AS tp_count FROM `pet_article` `a`,`pet_classification` `c` WHERE  (  a.classi = c.id AND a.is_status = 1 ) LIMIT 1 [ RunTime:0.044890s ]
+[ sql ] [ SQL ] SELECT a.id, a.title, a.source, a.abstract, FROM_UNIXTIME(a.add_time) AS add_time, FROM_UNIXTIME(a.release_time) AS release_time, c.name, a.is_release FROM `pet_article` `a`,`pet_classification` `c` WHERE  (  a.classi = c.id AND a.is_status = 1 ) ORDER BY `a`.`id` DESC LIMIT 0,10 [ RunTime:0.062013s ]
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_classification` [ RunTime:0.050591s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `pet_classification` WHERE  `level` = 1  AND `status` = 1 [ RunTime:0.035167s ]
+[ sql ] [ SQL ] SELECT `option_value` FROM `pet_option` WHERE  `option_name` = 'admin_settings' LIMIT 1 [ RunTime:0.054952s ]
+---------------------------------------------------------------
+[ 2018-06-12T22:35:22+08:00 ] 127.0.0.1 POST /pets/public/common/common/getnextclass.html
+[ info ] 127.0.0.1/pets/public/common/common/getnextclass.html [运行时间：0.193827s][吞吐率：5.16req/s] [内存消耗：2,499.18kb] [文件加载：61]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.002611s ]
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\simplewind\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'common',
+    1 => 'common',
+    2 => 'getnextclass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'cookie' => 'DUYL_2132_saltkey=tsaACafa; DUYL_2132_lastvisit=1526900871; DUYL_2132_ulastactivity=0785ozJmbPHBV1hP0RAkg%2Fb8Pyg6lPDQL2O%2BDTHTnaNXdc0GiEfK; DUYL_2132_lastcheckfeed=1%7C1526904547; DUYL_2132_nofavfid=1; DUYL_2132_home_readfeed=1526904729; admin_username=liyang; PHPSESSID=k5h1792kqf8n6bm3gpatdsbct1',
+  'content-length' => '5',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'referer' => 'http://127.0.0.1/pets/public/admin/article/lists.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+  'pid' => '2',
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../simplewind/cmf/lang\zh-cn.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\common.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/portal\lang\zh-cn\common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.002837s ]
+[ info ] [ RUN ] app\common\controller\CommonController->getNextClass[ D:\phpStudy\WWW\pets\app\common\controller\CommonController.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.057030s ] mysql:host=47.92.124.165;port=3306;dbname=pet;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_classification` [ RunTime:0.041242s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `pet_classification` WHERE  `pid` = 2  AND `level` = 2  AND `status` = 1 [ RunTime:0.046747s ]
+---------------------------------------------------------------
+[ 2018-06-12T22:35:27+08:00 ] 127.0.0.1 POST /pets/public/common/common/getnextclass.html
+[ info ] 127.0.0.1/pets/public/common/common/getnextclass.html [运行时间：0.202716s][吞吐率：4.93req/s] [内存消耗：2,499.18kb] [文件加载：61]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.002600s ]
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\simplewind\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'common',
+    1 => 'common',
+    2 => 'getnextclass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'cookie' => 'DUYL_2132_saltkey=tsaACafa; DUYL_2132_lastvisit=1526900871; DUYL_2132_ulastactivity=0785ozJmbPHBV1hP0RAkg%2Fb8Pyg6lPDQL2O%2BDTHTnaNXdc0GiEfK; DUYL_2132_lastcheckfeed=1%7C1526904547; DUYL_2132_nofavfid=1; DUYL_2132_home_readfeed=1526904729; admin_username=liyang; PHPSESSID=k5h1792kqf8n6bm3gpatdsbct1',
+  'content-length' => '5',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'referer' => 'http://127.0.0.1/pets/public/admin/article/lists.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+  'pid' => '1',
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../simplewind/cmf/lang\zh-cn.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\common.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/portal\lang\zh-cn\common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.003345s ]
+[ info ] [ RUN ] app\common\controller\CommonController->getNextClass[ D:\phpStudy\WWW\pets\app\common\controller\CommonController.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.076984s ] mysql:host=47.92.124.165;port=3306;dbname=pet;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_classification` [ RunTime:0.041773s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `pet_classification` WHERE  `pid` = 1  AND `level` = 2  AND `status` = 1 [ RunTime:0.034510s ]
+---------------------------------------------------------------
+[ 2018-06-12T22:35:32+08:00 ] 127.0.0.1 POST /pets/public/common/common/getnextclass.html
+[ info ] 127.0.0.1/pets/public/common/common/getnextclass.html [运行时间：0.323788s][吞吐率：3.09req/s] [内存消耗：2,498.88kb] [文件加载：61]
+[ info ] [ CACHE ] INIT File
+[ info ] [ BEHAVIOR ] Run cmf\behavior\InitHookBehavior @app_init [ RunTime:0.002719s ]
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\simplewind\thinkphp\lang\zh-cn.php
+[ info ] [ ROUTE ] array (
+  'type' => 'module',
+  'module' => 
+  array (
+    0 => 'common',
+    1 => 'common',
+    2 => 'getnextclass',
+  ),
+)
+[ info ] [ HEADER ] array (
+  'connection' => 'close',
+  'cookie' => 'DUYL_2132_saltkey=tsaACafa; DUYL_2132_lastvisit=1526900871; DUYL_2132_ulastactivity=0785ozJmbPHBV1hP0RAkg%2Fb8Pyg6lPDQL2O%2BDTHTnaNXdc0GiEfK; DUYL_2132_lastcheckfeed=1%7C1526904547; DUYL_2132_nofavfid=1; DUYL_2132_home_readfeed=1526904729; admin_username=liyang; PHPSESSID=k5h1792kqf8n6bm3gpatdsbct1',
+  'content-length' => '5',
+  'x-requested-with' => 'XMLHttpRequest',
+  'content-type' => 'application/x-www-form-urlencoded; charset=UTF-8',
+  'referer' => 'http://127.0.0.1/pets/public/admin/article/lists.html',
+  'accept-encoding' => 'gzip, deflate',
+  'accept-language' => 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
+  'accept' => 'application/json, text/javascript, */*; q=0.01',
+  'user-agent' => 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0',
+  'host' => '127.0.0.1',
+)
+[ info ] [ PARAM ] array (
+  'pid' => '4',
+)
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../simplewind/cmf/lang\zh-cn.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/admin\lang\zh-cn\common.php
+[ info ] [ LANG ] D:\phpStudy\WWW\pets\public/../app/portal\lang\zh-cn\common.php
+[ info ] [ BEHAVIOR ] Run cmf\behavior\LangBehavior @app_begin [ RunTime:0.001015s ]
+[ info ] [ RUN ] app\common\controller\CommonController->getNextClass[ D:\phpStudy\WWW\pets\app\common\controller\CommonController.php ]
+[ info ] [ DB ] INIT mysql
+[ info ] [ LOG ] INIT File
+[ sql ] [ DB ] CONNECT:[ UseTime:0.122123s ] mysql:host=47.92.124.165;port=3306;dbname=pet;charset=utf8
+[ sql ] [ SQL ] SHOW COLUMNS FROM `pet_classification` [ RunTime:0.055390s ]
+[ sql ] [ SQL ] SELECT `id`,`name` FROM `pet_classification` WHERE  `pid` = 4  AND `level` = 2  AND `status` = 1 [ RunTime:0.101407s ]

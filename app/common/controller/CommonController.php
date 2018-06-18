@@ -42,16 +42,6 @@ class CommonController extends Controller{
 	}
 
 
-	/**
-	* 上传图片
-	*
-	*/
-	public function uploadsImg(){
-		//获取参数
-		$request = Request::instance();
-		$file = request()->file('file');
 
-		dump($file);
-	}
 }
 ?>

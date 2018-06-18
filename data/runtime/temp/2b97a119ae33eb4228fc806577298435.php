@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:49:"themes/admin_simpleboot3/admin\article\lists.html";i:1528808429;s:71:"D:\phpStudy\WWW\pets\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:49:"themes/admin_simpleboot3/admin\article\lists.html";i:1529206549;s:71:"D:\phpStudy\WWW\pets\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -83,7 +83,6 @@
 </head>
 <link rel="stylesheet" type="text/css" href="/pets/public/static/admin/css/layerconfig.css">
 <link rel="stylesheet" type="text/css" href="/pets/public/static/admin/css/admin.css">
-<link rel="stylesheet" href="/static/build/layui.css" media="all">
 <body>
 <div class="wrap">
     <ul class="nav nav-tabs">
@@ -153,7 +152,9 @@
                 <?php endforeach; endif; else: echo "" ;endif; ?>
             </tbody>
         </table>
-        <div class="pagination"></div>
+        <div class="pagination">
+            <?php echo $page; ?>
+        </div>
     </form>
 </div>
 <script src="/pets/public/static/js/admin.js"></script>

@@ -34,7 +34,11 @@ define('RUNTIME_PATH', CMF_ROOT . 'data/runtime/');
 // 定义CMF 版本号
 define('THINKCMF_VERSION', '5.0.180508');
 
+//定义根目录
+define('ROOT_PATH', '');
 
+//定义域名
+define('REALM', '');
 
 
 
