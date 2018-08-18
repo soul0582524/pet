@@ -6,7 +6,8 @@
 <div class="wrap">
     <ul class="nav nav-tabs">
         <li class="active"><a>分类列表</a></li>
-       <li><a href="{:url('admin/Classification/addClass')}">添加分类</a></li>
+        <li><a href="{:url('admin/Classification/addClass')}">添加分类</a></li>
+        <li><a href="{:url('admin/Classification/nav')}">引导页展示分类</a></li>
     </ul>
     <form class="well form-inline margin-top-20" method="post" action="{:url('Admin/Classification/index')}">
 
@@ -54,6 +55,14 @@
                                 <a href="{:url('admin/Classification/detail',array('id' =>$vo.id))}" class="abutton">详情</a>
                                 &nbsp;|&nbsp;
                                 <a href="javascript:cancel({$vo.id})" class="abutton">删除</a>
+                                &nbsp;|&nbsp;
+
+                                <if condition = "$vo.nav eq 1">
+                                    <a href="javascript:setNav({$vo.id}, 2)" class="abutton">取消引导页展示</a>
+                                <elseif condition = "$vo.nav eq 2"/>
+                                    <a href="javascript:setNav({$vo.id}, 1)" class="abutton">设置引导页展示</a>
+                                </if>
+                               
                             </td>
                         </tr>
                     <elseif condition = "$vo.level == 2">    
@@ -124,6 +133,39 @@
                 }
             });
         })
+    }
+
+    /**
+    * 引导页展示
+    * @param id 分类id
+    */
+    function setNav(id, type){
+        var content = '';
+        if (type == 1) {
+            content = '确定要设置该分类为引导页展示分类吗？';
+        }else if (type == 2) {
+            content = '确定要取消该分类为引导页展示分类吗？';
+        }
+
+        layer.confirm(content,function(){
+            if (type == 1) {
+
+            }else{
+                $.ajax({
+                    url: "{:url('admin/Classification/setNav')}",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {"id": id, "type":type},
+                    success:function(res){
+                        layer.msg(res.msg);
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 2000);
+                    }
+                });
+            }
+            
+        });
     }
 </script>
 </body>

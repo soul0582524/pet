@@ -287,7 +287,9 @@ class ArticleController extends AdminBaseController{
 		echo json_encode($data);
 	}
 
-
+	/**
+	* 设置推荐文章
+	*/
 	public function nav(){
 		//获取参数
 		$request    = Request::instance();
@@ -308,6 +310,104 @@ class ArticleController extends AdminBaseController{
 		}else{
 			$data['code'] = 1;
 			$data['msg']  = '设置成功';
+		}
+		echo json_encode($data);
+	}
+
+	/**
+	* 引导页展示文章
+	*/
+	public function navArticle(){
+		//获取参数
+		$request = Request::instance();
+		$param   = $request ->param();
+
+		//获得第一个分类下的三篇推荐文章
+		$where2 = 'n.article_id = a.id &&';
+		$where2.= 'a.is_release = 1 &&';
+		$where2.= 'a.is_status  = 1 &&';
+		$where2.= 'c.id = a.classi';
+
+
+
+		if (!empty($param['classi']) && $param['classi'] != 0) {
+			$where2 .= ' AND a.classi = '.$param['classi'];
+		}
+
+		if (!empty($param['title'])) {
+			$title = trim($param['title']);
+			if (!empty($title)) {
+				$where2 .= " AND a.title like '%".$title."%' ";
+			}
+		}
+
+		$list = Db::table(['pet_nav_article' => 'n', 'pet_article' => 'a', 'pet_classification' => 'c']) 
+				->where($where2)
+				->field('a.id, a.title,  a.abstract,  c.name, a.is_release, n.id AS nid, n.sort')
+				->order('n.sort DESC, a.id DESC')
+				->paginate('10');
+		$this ->assign('list', $list);
+		// 获取分页显示
+        $page = $list->render();
+        $this->assign('page', $page);
+
+        $classification = new ClassificationModel();
+		//查询所有一级分类
+		$where['level']  = 1;
+		$where['status'] = 1;
+		$field = 'id, name';
+
+		$classi = $classification ->selectClass($where, $field);
+		
+		$this ->assign('classi', $classi);
+
+        return $this ->fetch();
+	}
+
+
+	/**
+	* 删除推荐
+	* @param 推荐id
+	*/
+	public function checkoutNav(){
+		//获取参数
+		$request = Request::instance();
+		$param   = $request ->param();
+
+		$where['id'] = $param['id'];
+
+		$result = Db::table('pet_nav_article') ->where($where) ->delete();
+		if ($result === false) {
+			$data['code'] = 2;
+			$data['msg']  = '取消设置失败';
+		}else{
+			$data['code'] = 1;
+			$data['msg']  = '取消设置成功';
+		}
+		echo json_encode($data);
+	}
+
+	/**
+	* 设置排序
+	* @param id 引导页文章id
+	* @param sort 排序数字
+	*/
+	public function SetSort(){
+		//获取参数
+		$request = Request::instance();
+		$param   = $request ->param();
+
+		$nav_article = new NavArticleModel();
+		$where['id'] = $param['id'];
+		$save['sort']= $param['sort'];
+		$result      = $nav_article ->setFieldArticle($where, $save);
+
+		if ($result === false) {
+			$data['code'] = 2;
+			$data['msg']  = '设置排序失败';
+		}else{
+			$data['code'] = 1;
+			$data['msg']  = '设置排序成功';
 		}
 		echo json_encode($data);
 	}

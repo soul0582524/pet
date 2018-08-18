@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:50:"themes/admin_simpleboot3/admin\article\detail.html";i:1528294851;s:71:"D:\phpStudy\WWW\pets\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:50:"themes/admin_simpleboot3/admin\article\detail.html";i:1529912010;s:71:"D:\phpStudy\WWW\pets\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -96,6 +96,7 @@
     <ul class="nav nav-tabs">
         <li><a href="<?php echo url('Article/lists'); ?>">文章管理</a></li>
         <li class="active"><a>文章详情</a></li>
+        <li><a href="<?php echo url('admin/Article/nav'); ?>">引导页展示文章</a></li>
     </ul>
     <form class="form-horizontal js-ajax-form margin-top-20">
         <div class="row">

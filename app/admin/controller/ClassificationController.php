@@ -34,7 +34,7 @@ class ClassificationController extends AdminBaseController{
 		        ->alias('c')
 				->join(['pet_classification' => 'p'], 'c.pid = p.id', 'left')
 				->where($where)
-				->field('c.id, c.name, c.level, p.name as pname')
+				->field('c.id, c.name, c.level, p.name as pname, c.nav')
 				->order('c.pid ASC, c.id ASC')
 				->paginate('10');
 
@@ -199,6 +199,62 @@ class ClassificationController extends AdminBaseController{
 		}
 		echo json_encode($data);
 
+	}
+
+
+	/**
+	* 引导页设置
+	* @param id 分类id
+	* @param type  类型 1添加  2取消
+	*/
+	public function setNav(){
+		//获取参数
+		$request = Request::instance();
+		$param   = $request ->param();
+
+		$model   = new ClassificationModel(); //实例化表
+
+		$where['id'] = $param['id'];
+		$save['nav'] = $param['type'];
+		$result  = $model ->setFieldClass($where, $save);
+		if ($param['type'] == 1) {
+			if ($result === false) {
+				$data['code'] = 2;
+				$data['msg']  = '设置引导页展示失败';
+			}else{
+				$data['code'] = 1;
+				$data['msg']  = '设置引导页展示成功';
+			}
+		}else if ($param['type'] == 2) {
+			if ($result === false) {
+				$data['code'] = 2;
+				$data['msg']  = '取消引导页展示失败';
+			}else{
+				$data['code'] = 1;
+				$data['msg']  = '取消引导页展示成功';
+			}
+		}
+
+		
+		echo json_encode($data);
+
+	}
+
+	/**
+	* 引导页分类展示
+	*/
+	public function nav(){
+		$model = new ClassificationModel(); //实例化表
+		$where['nav']    = 1;
+		$where['status'] = 1;
+
+		$field = 'id, name';
+
+		$res   = $model ->selectClass($where, $field);
+
+		$this ->assign('res', $res);
+
+		return $this ->fetch();
 	}
 }
 ?>

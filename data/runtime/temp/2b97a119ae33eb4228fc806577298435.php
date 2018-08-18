@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:49:"themes/admin_simpleboot3/admin\article\lists.html";i:1529206549;s:71:"D:\phpStudy\WWW\pets\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:49:"themes/admin_simpleboot3/admin\article\lists.html";i:1530068330;s:71:"D:\phpStudy\WWW\pets\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,6 +88,7 @@
     <ul class="nav nav-tabs">
         <li class="active"><a>文章列表</a></li>
         <li><a href="<?php echo url('admin/Article/add'); ?>">添加文章</a></li>
+        <li><a href="<?php echo url('admin/Article/navArticle'); ?>">引导页展示文章</a></li>
     </ul>
     <form class="well form-inline margin-top-20" method="post" action="<?php echo url('Admin/Article/lists'); ?>">
         一级分类：

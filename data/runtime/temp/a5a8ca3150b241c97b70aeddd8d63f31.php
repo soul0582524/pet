@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:56:"themes/admin_simpleboot3/admin\classification\index.html";i:1528297042;s:71:"D:\phpStudy\WWW\pets\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:56:"themes/admin_simpleboot3/admin\classification\index.html";i:1529909347;s:71:"D:\phpStudy\WWW\pets\public\themes\admin_simpleboot3\public\header.html";i:1525682252;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,7 +87,8 @@
 <div class="wrap">
     <ul class="nav nav-tabs">
         <li class="active"><a>分类列表</a></li>
-       <li><a href="<?php echo url('admin/Classification/addClass'); ?>">添加分类</a></li>
+        <li><a href="<?php echo url('admin/Classification/addClass'); ?>">添加分类</a></li>
+        <li><a href="<?php echo url('admin/Classification/nav'); ?>">引导页展示分类</a></li>
     </ul>
     <form class="well form-inline margin-top-20" method="post" action="<?php echo url('Admin/Classification/index'); ?>">
 
@@ -130,6 +131,14 @@
                                 <a href="<?php echo url('admin/Classification/detail',array('id' =>$vo['id'])); ?>" class="abutton">详情</a>
                                 &nbsp;|&nbsp;
                                 <a href="javascript:cancel(<?php echo $vo['id']; ?>)" class="abutton">删除</a>
+                                &nbsp;|&nbsp;
+
+                                <?php if($vo['nav'] == 1): ?>
+                                    <a href="javascript:setNav(<?php echo $vo['id']; ?>, 2)" class="abutton">取消引导页展示</a>
+                                <?php elseif($vo['nav'] == 2): ?>
+                                    <a href="javascript:setNav(<?php echo $vo['id']; ?>, 1)" class="abutton">设置引导页展示</a>
+                                <?php endif; ?>
+                               
                             </td>
                         </tr>
                     <?php elseif($vo['level'] == 2): ?>    
@@ -195,6 +204,39 @@
                 }
             });
         })
+    }
+
+    /**
+    * 引导页展示
+    * @param id 分类id
+    */
+    function setNav(id, type){
+        var content = '';
+        if (type == 1) {
+            content = '确定要设置该分类为引导页展示分类吗？';
+        }else if (type == 2) {
+            content = '确定要取消该分类为引导页展示分类吗？';
+        }
+
+        layer.confirm(content,function(){
+            if (type == 1) {
+
+            }else{
+                $.ajax({
+                    url: "<?php echo url('admin/Classification/setNav'); ?>",
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {"id": id, "type":type},
+                    success:function(res){
+                        layer.msg(res.msg);
+                        setTimeout(function(){
+                            window.location.reload();
+                        }, 2000);
+                    }
+                });
+            }
+            
+        });
     }
 </script>
 </body>

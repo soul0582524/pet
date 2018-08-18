@@ -1,0 +1,160 @@
+html,body{  
+    height: 100%;  
+}
+.box{
+	position: relative;
+}
+.video{
+	position: absolute;
+	top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.t1{
+	padding-top: 130px;
+	margin: 0 auto;
+	font-size: 85px;
+	font-weight: bold;
+	color: #fff;
+	text-align: center;
+}
+.t2{
+	margin: 70px auto 0; 
+	font-size: 42px;
+	color: #fff;
+	text-align: center;
+}
+.b-box{
+	width: 520px;
+	height: 86px;
+	margin: 70px auto 0; 
+}
+.miao{
+	width:218px;
+	height:86px;
+	left:420px;
+	top:471px;
+	z-index:9;
+	color:rgba(255, 255, 255, 1);
+	background-color:rgba(255, 255, 255, 0.25);
+	border-radius: 50px;
+	font-size:38.0px;
+	padding:0px;
+	border-width:1px;
+	border-style:solid;
+	text-align:center;
+	line-height:55px;
+	font-weight:normal;
+	font-style:normal;
+	opacity:1;
+}
+.miao .cat{
+	width:218px;
+	height:86px;
+	background: url(../img/fish.png) no-repeat 110px;
+	background-size:86px 86px;
+}
+.miao .dog{
+	width:218px;
+	height:86px;
+	background: url(../img/bone.png) no-repeat 110px;
+	background-size:86px 86px;
+}
+.miao  p{
+	line-height: 86px;
+	text-align: left;
+	text-indent: 0.5em;
+}
+.tab{
+	width: 100%;
+	height: 80px;
+}
+.tab-l{
+
+	height: 80px;
+	text-align:center;
+	border-right:1px solid #ccc;
+	box-sizing:border-box;
+	cursor:pointer;
+}
+.tab-r{
+
+	height: 80px;
+	text-align:center;
+	cursor:pointer;
+}
+.tab-active{
+	border-bottom:6px solid #EA7450;
+	box-sizing: border-box;
+}
+.content{
+	display: none;
+}
+.c-active{
+	display: block;
+}
+.tab p{
+	font-size:28px;
+	font-weight:bold;
+	color:#EA7450;
+	line-height:80px;
+}
+.content-wrap{
+	width: 100%;
+}
+.content{
+	width: 100%;
+}
+.content .item{
+	width: 100%;
+	height: 430px;
+}
+
+.content .item .title{
+	width: 1042px;
+	height:114px;
+	padding-top:110px;
+	margin:0 auto;
+	font-size:28px;
+	text-align:center;
+	line-height:40px;
+	color:#fff;
+}
+.content .item .words{
+	width: 1042px;
+	margin:0 auto;
+	font-size:18px;
+	text-align:center;
+	line-height:100px;
+	color:#fff;
+}
+.more{
+	width: 100%;
+	height: 100px;
+}
+.more p{
+	width: 300px;
+	height: 84px;
+	line-height:84px;
+	text-align: center;
+	margin: 0 auto;
+	font-size: 22px;
+	color: #767679;
+}
+.bottom{
+	width: 100%;
+	height: 66px;
+	background:#70798A;
+}
+.bottom ul{
+	width: 100%;
+	height: 66px;
+}
+.bottom ul li{
+	width: 25%;
+	height: 66px;
+	line-height: 66px;
+	text-align: center;
+	font-size:14px;
+	color: #fff;
+}

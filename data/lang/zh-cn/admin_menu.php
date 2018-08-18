@@ -2,6 +2,7 @@
 return array (
   'ADMIN_ARTICLE_INDEX' => '文章管理',
   'ADMIN_ARTICLE_LISTS' => '文章管理',
+  'ADMIN_BANNER_INDEX' => '广告管理',
   'ADMIN_BLACKWORDS_INDEX' => '黑词屏蔽',
   'ADMIN_CLASSIFICATION_INDEX' => '文章分类',
   'ADMIN_HOOK_INDEX' => '钩子管理',
