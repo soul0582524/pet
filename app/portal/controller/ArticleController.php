@@ -20,7 +20,6 @@ class ArticleController extends HomeBaseController
 {
     public function index()
     {
-
         $portalCategoryModel = new PortalCategoryModel();
         $postService         = new PostService();
 
