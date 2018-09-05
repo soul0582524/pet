@@ -1,0 +1,108 @@
+<include file="public@header"/>
+</head>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/layerconfig.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/admin.css">
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a>用户管理列表</a></li>
+        <li><a href="{:url('admin/UserLocal/add')}">用户添加</a></li>
+    </ul>
+
+    <form method="post" class="js-ajax-form">
+        <table class="table table-hover table-bordered tablecenter">
+            <thead style="font-size: 24px;">
+            <tr>
+                <th class="tablecenter">ID</th>
+                <th class="tablecenter">用户名</th>
+                <th class="tablecenter">手机号</th>
+                <th class="tablecenter">邮箱</th>
+                <th class="tablecenter">添加时间</th>
+                <th class="tablecenter">更新时间</th>
+                <th class="tablecenter">性别</th>
+                <th class="tablecenter">宠物数量</th>
+                <th class="tablecenter">编辑用户</th>
+                <th class="tablecenter">拉黑用户</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <foreach name="userinfo" item="userinfo">
+                <tr>
+                    <td>{$userinfo.id}</td>
+                    <td>{$userinfo.username}</td>
+                    <td>{$userinfo.tel}</td>
+                    <td>{$userinfo.email}</td>
+                    <td>{$userinfo.added_time|date='Y-m-d H:i:s',###}</td>
+                    <td>{$userinfo.update_time|date='Y-m-d H:i:s',###}</td>
+                    <td>{$userinfo.sex}</td>
+                    <td>{$userinfo.username}</td>
+                    <td><a href="{:url('admin/UserLocal/edit',array('id'=>$userinfo['id']))}">{:lang('EDIT')}</a></td>
+                    <td><button class="btn btn-xs">拉黑</button></td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+        <div class="pagination">{$page}</div>
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/layerconfig.js"></script>
+<script type="text/javascript">
+
+    //取消黑词
+    function cancel(id){
+        layer.confirm('确定要取消该黑词设定吗？',function(){
+            var url = "{:url('Admin/BlackWords/cancel')}";
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                data: {'id': id},
+                success:function(res){
+                    layer.msg(res.msg);
+                    if (res.code == 1) {
+                        setTimeout(function(){
+                            window.location.reload();
+                        },2000)
+                    }
+
+                }
+            })
+
+
+        })
+    }
+
+    function add(){
+        layer.prompt({
+            formType: 2,
+            title: '请输入黑词',
+            area: ['400px', '50px'] //自定义文本域宽高
+        }, function(value, index, elem){
+            $.ajax({
+                url: "{:url('Admin/LocalUser/adduser')}",
+                type: 'POST',
+                dataType: 'json',
+                data: {'value': value},
+                success:function(res){
+                    layer.msg(res.msg);
+                    if (res.code == 1) {
+                        setTimeout(function(){
+                            window.location.reload();
+                        },2000)
+                    }
+
+                }
+            })
+        });
+    }
+    function edit() {
+
+    }
+</script>
+</body>
+</html>
