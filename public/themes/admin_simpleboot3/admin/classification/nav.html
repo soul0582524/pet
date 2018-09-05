@@ -1,0 +1,65 @@
+<include file="public@header"/>
+</head>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/layerconfig.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/admin.css">
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('admin/Classification/index')}">分类列表</a></li>
+        <li><a href="{:url('admin/Classification/addClass')}">添加分类</a></li>
+        <li class="active"><a>引导页展示分类</a></li>
+    </ul>
+
+    <form method="post" class="js-ajax-form">
+        <table class="table table-hover table-bordered tablecenter">
+            <thead style="font-size: 24px;">
+                <tr>
+                    <th class="tablecenter">ID</th>
+                    <th class="tablecenter">分类名称</th>
+                    <th class="tablecenter">{:lang('ACTIONS')}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <foreach name="res" item="vo">
+                    <tr>
+                        <td>{$vo['id']}</td>
+                        <td>{$vo['name']}</td>
+                        <td>
+                            <a href="javascript:setNav({$vo.id}, 2)" class="abutton">取消引导页展示</a>
+                        </td>
+                    </tr>
+                </foreach>
+           
+            </tbody>
+        </table>
+   
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/layerconfig.js"></script>
+<script type="text/javascript">
+
+    /**
+    * 引导页展示
+    * @param id 分类id
+    */
+    function setNav(id, type){
+        layer.confirm('确定要取消该分类为引导页展示分类吗？',function(){
+            $.ajax({
+                url: "{:url('admin/Classification/setNav')}",
+                type: 'POST',
+                dataType: 'json',
+                data: {"id": id, "type":type},
+                success:function(res){
+                    layer.msg(res.msg);
+                    setTimeout(function(){
+                        window.location.reload();
+                    }, 2000);
+                }
+            });
+        });
+    }
+</script>
+</body>
+</html>
