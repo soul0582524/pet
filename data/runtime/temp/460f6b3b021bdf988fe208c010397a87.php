@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:42:"themes/admin_simpleboot3/admin\\login.html";i:1526993066;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:42:"themes/admin_simpleboot3/admin\\login.html";i:1534650271;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +11,9 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <![endif]-->
-    <link href="/pets/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
-    <link href="/pets/public/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="/pets/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/login.css" rel="stylesheet">
+    <link href="/pet_new/pet/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/bootstrap.min.css" rel="stylesheet">
+    <link href="/pet_new/pet/public/static/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/pet_new/pet/public/themes/admin_simpleboot3/public/assets/themes/<?php echo cmf_get_admin_style(); ?>/login.css" rel="stylesheet">
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
@@ -72,15 +72,15 @@
 <script type="text/javascript">
     //全局变量
     var GV = {
-        ROOT: "/pets/public/",
-        WEB_ROOT: "/pets/public/",
+        ROOT: "/pet_new/pet/public/",
+        WEB_ROOT: "/pet_new/pet/public/",
         JS_ROOT: "static/js/",
         APP: ''/*当前应用名*/
     };
 </script>
-<script src="/pets/public/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
-<script src="/pets/public/static/js/wind.js"></script>
-<script src="/pets/public/static/js/admin.js"></script>
+<script src="/pet_new/pet/public/themes/admin_simpleboot3/public/assets/js/jquery-1.10.2.min.js"></script>
+<script src="/pet_new/pet/public/static/js/wind.js"></script>
+<script src="/pet_new/pet/public/static/js/admin.js"></script>
 <script>
     (function () {
         document.getElementById('input_username').focus();
