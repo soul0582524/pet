@@ -1,0 +1,120 @@
+<include file="public@header"/>
+</head>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/layerconfig.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/admin.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/layui/css/layui.css">
+
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a>引导页视频</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20">
+        <button type="button" class="layui-btn" id="test1">
+          <i class="layui-icon">&#xe67c;</i>上传视频
+        </button>
+    </form>
+    <form method="post" class="js-ajax-form">
+        <table class="table table-hover table-bordered tablecenter">
+            <thead style="font-size: 24px;">
+                <tr>
+                    <th class="tablecenter" width="15%">ID</th>
+   
+                    <th class="tablecenter" width="50%">视频</th>
+                    <th class="tablecenter" width="15%">添加时间</th>
+ 
+                    <th class="tablecenter" width="20%">{:lang('ACTIONS')}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <foreach name = "list" item = "vo">
+                    <tr>
+                        <td class="tablecenter">{$vo.id}</td>
+           
+                        <td class="tablecenter">
+                             <video width="700px;" controls="controls" src="__ROOT__/{$vo.url}">  
+                             </video>  
+                        </td>
+                        <td class="tablecenter">{$vo.add_time}</td>
+                        <td class="tablecenter" class="action" id="action{$vo.id}">
+                            <a href="javascript:del({$vo.id}, '{$vo.url}')" style="color: #18BC9C;">删除</a>
+
+                        </td>
+                    </tr>
+                </foreach>
+
+            </tbody>
+        </table>
+        <div class="pagination">
+           {$page}
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/layerconfig.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/admin.js"></script>
+<script type="text/javascript" src="__STATIC__/layui/layui.js"></script>
+<script type="text/javascript">
+
+    var url = "{:url('Set/addVideo')}"
+    /**
+    * 添加引导页图片
+    */
+    layui.use('upload', function(){
+        var upload = layui.upload;
+       
+        //执行实例
+        var uploadInst = upload.render({
+
+            elem: '#test1' //绑定元素
+            ,accept :"video"
+            ,acceptMime : "video/"
+            ,url: url //上传接口
+            ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                layer.load(1, {
+                    shade: [0.1,'#fff'] //0.1透明度的白色背景
+                });
+             }
+            ,done: function(res){
+                layer.closeAll('loading'); //关闭loading
+                //上传完毕回调
+                layer.msg(res.msg);
+                if (res.code == 1) {
+                    setTimeout(function(){
+                        window.location.reload();
+                    });
+                    
+                }
+            }
+            ,error: function(){
+                layer.closeAll('loading'); //关闭loading
+            //请求异常回调
+            }
+        });
+    });
+
+    /**
+    * 删除
+    */
+    function del(id, url){
+        layer.confirm('确定要删除该视频吗？',function(){
+            $.ajax({
+                url: '{:url("Set/del")}',
+                type: 'POST',
+                dataType: 'json',
+                data: {"id":id, "url":url},
+                success:function(res){
+                    layer.msg(res.msg);
+                    setTimeout(function(){
+                        window.location.reload(); 
+                    },2000);
+                }
+            })
+        });
+    }
+
+   
+</script>
+</body>
+</html>

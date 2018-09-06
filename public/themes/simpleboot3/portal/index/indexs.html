@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<include file="portal/public@header"/>
+<head>
+
+    
+    <title>宠窝</title>
+    <link rel="stylesheet" href="__STATIC__/portal/css/reset.css">
+    <link rel="stylesheet" href="__STATIC__/portal/css/guide.css">
+</head>
+
+<style type="text/css">
+	.all{
+		width: 1366px;
+		height: 1693px;
+		background-color: rgba(255, 255, 255, 1);
+		margin: 0 auto;
+	}
+    .nav{
+    	height: 56px;
+    	line-height: 20px;
+    	background-color: rgba(255,255,255,0);
+    	text-align: center;;
+    }
+    .suozaididian{
+    	margin-left: 23px;
+    	margin-top: 14px;
+    	width: 23px;
+    	height: 23px;
+    	background-color: rgba(250,109,68,1);
+    	float: left;
+    }
+    .current_name{
+    	margin-left: 38px;
+    	margin-top: 14px;
+		width: 60px;
+		height: 30px;
+		border-radius: 4px;
+		color: rgba(234, 116, 80, 1);
+		font-size: 16px;
+		text-align: center;
+		font-family: Microsoft Yahei;
+    }
+    .go_name{
+    	margin-left: 77px;
+		margin-top: -29px;
+		width: 69px;
+		height: 30px;
+		border-radius: 4px;
+		color: rgba(118,118,121,1);
+		font-size: 14px;
+		text-align: center;
+		font-family: Microsoft Yahei;
+    }
+
+    .index{
+    	margin-left: 192px;
+		margin-top: -30px;
+		width: 61px;
+		height: 30px;
+		border-radius: 4px;
+		background-color: rgba(255, 255, 255, 0);
+		color: rgba(234, 116, 80, 1);
+		font-size: 16px;
+		text-align: center;
+		font-family: Microsoft Yahei;
+
+    }
+    .nav_ur_lpublic{
+    	margin-top: -30px;
+		width: 67px;
+		height: 30px;
+		border-radius: 4px;
+		background-color: rgba(255, 255, 255, 0);
+		color: rgba(118, 118, 121, 1);
+		font-size: 16px;
+		text-align: center;
+		font-family: Microsoft Yahei;
+    }
+    .dong{
+    	margin-left: 289px;
+    }
+    .tai{
+    	margin-left: 384px;
+    }
+    .wen{
+    	margin-left: 474px;
+    }
+    .land{
+    	margin-right: 50px;
+		margin-top: -29px;
+		width: 229px;
+		height: 30px;
+		border-radius: 4px;
+		background-color: rgba(255, 255, 255, 0);
+		color: rgba(234, 116, 80, 1);
+		font-size: 14px;
+		text-align: center;
+		font-family: Microsoft Yahei;
+		float: right;
+    }
+    .register{
+    	margin-right: -193px;
+		margin-top: -29px;
+		width: 80px;
+		height: 30px;
+		border-radius: 4px;
+		background-color: rgba(255, 255, 255, 0);
+		color: rgba(118, 118, 121, 1);
+		font-size: 14px;
+		text-align: center;
+		font-family: Microsoft Yahei;
+		float: right;
+    }
+
+    .serach_div{
+   		height: 110px; 
+   		position: relative;
+    }
+    .logo{
+
+		margin: 21px 0 21px 194px;
+		width: 89px;
+		height: 68px;
+		line-height: 65px;
+		color: rgba(234, 116, 80, 1);
+		font-size: 45px;
+		text-align: center;
+		font-family: Roboto;
+		position: absolute;
+    }
+    .search{
+  
+		margin: 30px 0 30px 322px;
+		width: 670px;
+		height: 50px;
+		color: rgba(136, 136, 136, 1);
+		font-size: 14px;
+		text-align: left;
+		font-family: Microsoft Yahei;
+		border: 2px solid rgba(234, 116, 80, 1);
+		position: absolute;
+    }
+    .onsearch{
+    	
+		margin: 30px 0 30px 992px;
+		width: 101px;
+		height: 50px;
+		background-color: rgba(234, 116, 80, 1);
+		color: rgba(255, 255, 255, 1);
+		font-size: 14px;
+		text-align: center;
+		font-family: Microsoft Yahei;
+		position: absolute;
+    }
+
+
+
+</style>
+<body>
+	<!-- 总div -->
+	<div class="all">
+		<!-- 导航栏 -->	
+		<div  class="nav">
+			<div>
+				<img src="__STATIC__/images/suozaididian.jpg" class="suozaididian">
+			</div>
+			<div class="current_name">{$current.name}</div>
+			<div class="go_name">{$go.name}</div>
+			<div class="index">首页</div>
+			<div class="nav_ur_lpublic dong">懂我</div>
+			<div class="nav_ur_lpublic tai">动态</div>
+			<div class="nav_ur_lpublic wen">问大家</div>
+
+			<div class="land" onclick="land()">
+				登陆
+			</div>
+			<div class="register">
+				/  注册
+			</div>
+		</div>
+
+		<!-- 搜索 -->
+		<div class="search_div">
+			<div class="logo">
+				logo
+			</div>
+	
+			<input type="text" class="search" placeholder="  大家都在搜索：猫粮" value="" />
+			<if condition = "$current.id eq 1">
+				<button type="button" class="onsearch">喵一下</button>
+			<elseif condition = "$current.id eq 2">
+				<button type="button" class="onsearch">汪一下</button>
+			</if>
+		</div>
+
+
+		<!-- top内容 -->
+		<dir class="top">
+			<!-- banner -->
+
+		</dir>
+	</div>
+ 
+<include file="portal/public@footer"/>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/layerconfig.js"></script>
+<script type="text/javascript">
+	/**
+	* 登陆
+	*/
+	function land(){
+		layer.open({
+		    type: 2, 
+		    
+		    title: '登陆',
+		    anim: 1,
+		    content: ['{:url("portal/Index/land")}', 'no'],
+		    area: ['500px', '300px;']
+		}); 
+	}
+</script>
+</body>
+</html>

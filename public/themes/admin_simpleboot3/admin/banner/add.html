@@ -1,0 +1,340 @@
+<include file="public@header"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/layerconfig.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/admin.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/layui/css/layui.css">
+<style type="text/css">
+    .display{
+        display: none;
+    }
+    table th{
+        width: 30%;
+    }
+    table td{
+        width: 70%
+    }
+    .articleList{
+        display: block;
+        margin-top: 5px;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #2C3E50;
+        background-color: #fff;
+        border: 1px solid #dce4ec;
+    }
+</style>
+
+</head>
+<body onload="uploadimg()">
+<div class="wrap js-check-wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('Banner/index')}">广告列表</a></li>
+        <li class="active"><a>添加广告</a></li>
+    </ul>
+    <form class="form-horizontal js-ajax-form margin-top-20">
+        <div class="row">
+            <div class="col-md-9">
+                <table class="table table-bordered">
+
+                    <tr>
+                        <th>标题</th>
+                        <td>
+                            <input class="form-control" type="text" name="post[post_title]"
+                                   id="title" required value="" placeholder="请输入标题"/>
+                        </td>
+                    </tr>
+                    <tr id="type">
+                        <th>类型</th>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                            <label><input type="radio" name="position" onclick="changeTable(1)" value="1" />首页左上角轮播广告</label>
+                            &nbsp;&nbsp;&nbsp;
+                            <label><input type="radio" name="position" onclick="changeTable(2)" value="2" />首页腰部固定广告</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>图片上传</th>
+                        <td id="imageUrl">
+                            <button type="button" class="layui-btn" id="test1" style="margin-left: 5px;">
+                              <i class="layui-icon">&#xe67c;</i>上传图片
+                            </button>
+
+                        </td>
+                    </tr>
+                    <tr id="topType" class="display">
+                        <th>左上角广告类型</th>
+                        <td>
+                            &nbsp;&nbsp;&nbsp;
+                            <label><input type="radio" name="topType" onclick="changeTable(3)" value="1" />广告</label>
+                            &nbsp;&nbsp;&nbsp;
+                            <label><input type="radio" name="topType" onclick="changeTable(4)" value="2" />文章</label>
+                        </td>
+                    </tr>
+
+                    <tr id="bannerTable" class="display">
+                        <th>广告地址</th>
+                        <td>
+                            <input type="text" id="bannerUrl" placeholder="请输入广告地址" class="form-control"/>
+                        </td>
+                    </tr>
+
+                    <tr id="articleTable" class="display">
+                        <th>选择文章</th>
+                        <td>
+                        
+                            <input type="text" id="article" placeholder="请输入文章标题" class="form-control" style="width: 50%; display: inline-block;" />
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="button" class="btn btn-primary" value="搜索" style="margin-top: -4px;" onclick="search()"  />
+
+                            <select class="articleList">
+                                <option value="0">请先搜索文章</option>
+                            </select>
+                        </td>
+                    </tr>
+
+
+                    
+
+                    <tr>
+                        <th>投放时间</th>
+                        <td>
+                            <input type="text" class="layui-input" id="time">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>排序序号</th>
+                        <td>
+                            <input type="text" class="form-control" value="0" id="sort">
+                        </td>
+                    </tr>
+
+                   
+                </table>
+                
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-primary js-ajax-submit" onclick = "add()">{:lang('ADD')}</button >
+                        <a class="btn btn-default" href="{:url('Article/lists')}">{:lang('BACK')}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" id="images">
+               
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/layerconfig.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/admin.js"></script>
+<script type="text/javascript" src="__STATIC__/layui/layui.js"></script>
+<script type="text/javascript">
+    /**
+    *切换地址
+    * type 1左上角广告  2腰部广告  3左上角广告类型为广告  4左上角广告类型为文章
+    */
+    function changeTable(type){
+        if (type == 1) {
+            $('#topType').removeClass('display');
+        }else if (type == 2) {
+            $('#topType').addClass('display');
+            $('#articleTable').addClass('display');
+            $('#bannerTable').removeClass('display');
+        }else if (type == 3) {
+            $('#bannerTable').removeClass('display');
+            $('#articleTable').addClass('display');
+        }else if (type == 4) {
+            $('#bannerTable').addClass('display');
+            $('#articleTable').removeClass('display');
+        }
+    }
+
+    /**
+    * 搜索文章
+    */
+    function search(){
+        //文章标题
+        var article = $('#article').val();
+        if (article == '') {
+            layer.msg('请输入文章标题');
+            return false;
+        }
+
+        $.ajax({
+            url: '{:url("Banner/searchArticle")}',
+            type: 'POST',
+            dataType: 'json',
+            data: {"title":article},
+            success:function(res){
+                if (res.code == 0) {
+                    layer.msg(res.msg);
+                }else if (res.code == 1) {
+                    var content = '<option value="0">请选择文章</option>';
+                    for (var i = 0; i < res.data.length; i++) {
+                        content+= '<option value="'+res.data[i].id+'">'+res.data[i].title+'</option>';
+                    }
+                    $('.articleList').html(content);
+                }
+            }
+        })
+    }
+    
+    /**
+    * layui 上传图片
+    */
+    var imageUrl = ''; //图片地址
+    function uploadimg(){
+        layui.use('upload', function(){
+            var upload = layui.upload;
+             
+            //执行实例
+            var uploadInst = upload.render({
+                elem: '#test1' //绑定元素
+                ,accept :"images"
+                ,acceptMime : "image/"
+                ,url: '{:url("Banner/setImage")}' //上传接口
+
+                ,done: function(res){
+      
+                    if (res.code == 0) {
+                        layer.msg(res.msg);
+                    }else{
+                        var content = '图片地址：<input type = "text" value = "'+res.data.imgpath+'"  readonly="readonly" class="form-control" style = "width:70%; display:inline-block"/>';
+                            content+= '&nbsp;&nbsp;&nbsp;';
+                            content+= '<input type = "button" class = "btn btn-primary" value = "删除图片" onclick = "checkoutImg()" style="margin-top: -4px;"/>';
+
+                        $('#imageUrl').html(content);
+                        imageUrl = res.data.imgpath;
+                        var contents = '<img src = "__ROOT__/'+res.data.imgpath+'" style="width:100%" />';
+                        $('#images').html(contents);
+                    }
+                }
+               
+            });
+        });
+    }
+
+    /**
+    * 删除图片
+    */
+    function checkoutImg(){
+        layer.confirm('确定要删除该图片吗？',function(){
+            $.ajax({
+                url: '{:url("Banner/checkoutImg")}',
+                type: 'POST',
+                dataType: 'json',
+                data: {"url":imageUrl},
+                success:function(res){
+                    layer.msg(res.msg);
+                    setTimeout(function(){
+                        var content = '<button type="button" class="layui-btn" id="test1" style="margin-left: 5px;">';
+                            content+=    '<i class="layui-icon">&#xe67c;</i>上传图片';
+                            content+= '</button>';
+                        $('#imageUrl').html(content);
+                        $('#images').html('');
+                        imageUrl = '';
+
+                        uploadimg();
+                    });
+                }
+            })
+        });
+    }
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+      
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#time' //指定元素
+            ,type:'datetime'
+            ,range: '~'
+        });
+    });
+
+
+    /**
+    * 添加
+    */
+    function add(){
+        //标题
+        var title = $('#title').val();
+        if (title == '') {
+            layer.msg('请输入广告标题');
+            return false;
+        }
+        //广告地址
+        var url   = '';
+
+        //位置
+        var position = $('input[name="position"]:checked').val();
+
+        if (position == 1) {
+            //左上角 判断类型
+            var type  = $('input[name="topType"]:checked').val();
+         
+            if (type == 1) {
+                //广告地址 
+                url   = $('#bannerUrl').val();
+                if (url == '') {
+                    layer.msg('请输入广告地址');
+                    return false;
+                }
+            }else if (type == 2) {
+                //文章
+                url = $('.articleList').val();
+                if (url == 0) {
+                    layer.msg('请选择文章');
+                    return false;
+                }
+            }else{
+                layer.msg('左上角广告类型');
+                return false;
+            }
+        }else if (position == 2) {
+            url   = $('#bannerUrl').val();
+            if (url == '') {
+                layer.msg('请输入广告地址');
+                return false;
+            }
+        }else{
+            layer.msg('请选择广告类型');
+            return false;
+        }
+        
+        //广告图片
+        if (imageUrl == '') {
+            layer.msg('请上传广告图片');
+            return false;
+        }
+        //投放时间
+        var time = $('#time').val();
+        if (time == '') {
+            layer.msg('请选择广告投放时间');
+            return false;
+        }
+        //排序序号
+        var sort = $('#sort').val();
+
+        $.ajax({
+            url: '{:url("Banner/addBanner")}',
+            type: 'POST',
+            dataType: 'json',
+            data: {"position":position, "title":title, "type":type, "url":url, "images":imageUrl, "time":time, "sort":sort},
+            success:function(res){
+                layer.msg(res.msg);
+                if (res.code == 1) {
+                    setTimeout(function(){
+                        window.location.href = "{:url('Banner/index')}";
+                    }, 2000)
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

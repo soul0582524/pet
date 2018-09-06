@@ -1,0 +1,199 @@
+<include file="public@header"/>
+</head>
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/layerconfig.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/admin/css/admin.css">
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li><a href="{:url('admin/Article/lists')}">文章列表</a></li>
+        <li><a href="{:url('admin/Article/add')}">添加文章</a></li>
+        <li class="active"><a>引导页展示文章</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('Admin/Article/navArticle')}">
+        一级分类：
+        <select name="classi" class="select" id="classi">
+            <option value="0">请选择分类</option>
+            <foreach name = "classi" item = "vo">
+                <option value="{$vo.id}">{$vo.name}</option>
+            </foreach>
+       </select>
+
+        标题：
+        <input class="form-control" type="text" name="title" style="width: 200px;" value="{:input('request.title')}" placeholder="标题">
+        &nbsp;
+
+        <input type="submit" class="btn btn-primary" value="搜索"/>
+        <a class="btn btn-danger" href="{:url('Admin/Article/navArticle')}">清空</a>
+
+
+    </form>
+    <form method="post" class="js-ajax-form">
+        <table class="table table-hover table-bordered tablecenter">
+            <thead style="font-size: 24px;">
+                <tr>
+                    <th class="tablecenter">ID</th>
+                    <th class="tablecenter">排序</th>
+                    <th class="tablecenter">分类</th>
+                    <th class="tablecenter">标题</th>
+                    <th class="tablecenter" width="500px;">摘要</th>
+
+                    <th class="tablecenter">{:lang('ACTIONS')}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <foreach name = "list" item = "vo">
+                    <tr>
+                        <th class="tablecenter" style="width: 10%">{$vo.id}</th>
+                        <th class="tablecenter" style="width: 10%" id="sort{$vo.nid}">{$vo.sort}</th>
+                        <th class="tablecenter" style="width: 10%">{$vo.name}</th>
+                        <th class="tablecenter" style="width: 10%">{$vo.title}</th>
+                 
+                        <th class="tablecenter" style="width: 35%">{$vo.abstract}</th>
+
+                        <th class="tablecenter" style="width: 25%" id="action{$vo.nid}">
+                            <a href="{:url('Admin/Article/detail',array('id' => $vo.id))}">详情</a>
+                            &nbsp;|&nbsp;
+                            <if condition = "$vo.is_release eq 2">
+                                <a href="javascript:release({$vo.id}, 1)">发布</a>
+                            <else/>
+                                <a href="javascript:release({$vo.id}, 2)">撤销</a>
+                            </if>
+
+                            &nbsp;|&nbsp;
+                            <a href="javascript:nav('{$vo.nid}')">取消引导页推荐</a>
+                            &nbsp;|&nbsp;
+                            <a href="javascript:changeSort({$vo.nid},{$vo.id},{$vo.sort})">修改排序</a>
+                        </th>
+                    </tr>
+                </foreach>
+            </tbody>
+        </table>
+        <div class="pagination">
+            {$page}
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js"></script>
+<script type="text/javascript" src="__STATIC__/layer/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/layerconfig.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/admin.js"></script>
+<script type="text/javascript">
+
+
+    /**
+    * 发布和取消发布
+    * @param id   文章id
+    * @param type type 1发布  2取消
+    */
+    function release(id, type){
+        $.ajax({
+            url: '{:url("Article/release")}',
+            type: 'POST',
+            dataType: 'json',
+            data: {"id":id, "type":type},
+            success:function(res){
+                layer.msg(res.msg);
+                setTimeout(function(){
+                    window.location.reload(); 
+                },2000);
+            }
+        })
+        
+    }
+
+
+    /**
+    * 引导推荐
+    * @param id 文章id
+    */
+    function nav(id){
+        layer.confirm('确定要取消该文件为引导页展示吗',function(){
+            $.ajax({
+                url: '{:url("Article/checkoutNav")}',
+                type: 'POST',
+                dataType: 'json',
+                data: {"id":id},
+                success:function(res){
+                    layer.msg(res.msg);
+                    setTimeout(function(){
+                        window.location.reload(); 
+                    },2000);
+                }
+            })
+        });
+
+    }
+
+
+
+
+
+    /**
+    * 修改排序
+    * nid 推荐文章Id 
+    * aid 文章id
+    * sort 原排序
+    */
+    var check = 1;
+    var action = '';
+    function changeSort(nid, aid, sort){
+        if (check == 2) {
+            layer.msg('请将修改的文章排序继续操作');
+            
+        }else{
+            check = 2;
+            var content = '<input type = "text" id= "newsort'+nid+'" value = "" placeholder = "由大到小排序"/>';
+            $('#sort'+nid).html(content);
+
+            action  = $('#action'+nid).html();
+
+
+            var contents = '<a href="javascript:ensure('+nid+')">确定排序</a>';
+                contents+= ' &nbsp;|&nbsp;';
+                contents+= '<a href="javascript:cancle('+nid+', '+sort+')">取消排序</a>';
+            $('#action'+nid).html(contents);
+        }
+    }
+
+    /**
+    * 取消排序
+    * nid 推荐文章Id 
+    * sort 原排序
+    */
+    function cancle(nid, sort){
+        check = 1;
+        $('#sort'+nid).html(sort);
+        $('#action'+nid).html(action);
+    }
+
+   /**
+    * 取消排序
+    * nid 推荐文章Id 
+    */
+    function ensure(nid){
+        var newsort = $('#newsort'+nid).val();
+        if (newsort == '' || newsort == 0) {
+            layer.msg('请输入排序数字',{
+                time:2000
+            });
+        }
+        $.ajax({
+            url: '{:url("Article/SetSort")}',
+            type: 'POST',
+            dataType: 'json',
+            data: {"id":nid, "sort":newsort},
+            success:function(res){
+                check = 1;
+                layer.msg(res.msg);
+                setTimeout(function(){
+                    window.location.reload(); 
+                },2000);
+            }
+        })
+
+    }
+
+
+</script>
+</body>
+</html>

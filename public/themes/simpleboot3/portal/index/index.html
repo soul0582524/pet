@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<include file="portal/public@header"/>
+<head>
+
+    
+    <title>宠窝</title>
+    <link rel="stylesheet" href="__STATIC__/portal/css/reset.css">
+    <link rel="stylesheet" href="__STATIC__/portal/css/guide.css">
+</head>
+
+<style type="text/css">
+    .aaa a{
+        color: #fff;
+    }
+</style>
+<body>
+
+
+
+
+    <div class="box">
+        <video id="video" autoplay muted loop style="width: 100%">
+            <source src="__ROOT__/{$video}">
+        </video>
+        <div id="output" style="display: none"></div>
+
+        <div class="video">
+            <p class="t1">宠窝</p>
+            <p class="t2">铲屎官的聚集地</p>
+            <div class="b-box clear-f aaa" >
+                    <div class="miao f-l">
+                        <a href="{$caturl}">
+                            <div class="cat"><p>喵窝</p></div>
+                        </a>
+                    </div>
+                    <div class="miao f-r">
+                        <a href="{$dogurl}">
+                            <div class="dog"><p>狗窝</p></div>
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab clear-f classtable">
+
+        <foreach name = "classi" item ="vo" key ="key">
+            <if condition ="$key eq 0">
+                <div class="tab-l tab-active f-l ctable" style="width: {$number}%" name="{$vo.id}" ><p>{$vo.name}</p></div>
+            <else/>
+                <div class="tab-r f-l ctable" style="width: {$number}%" name="{$vo.id}">
+                    <p>{$vo.name}</p>
+                </div>
+            </if>
+        </foreach>
+    </div>
+    <div class="content-wrap">
+        <div class="content c1 c-active content">
+            <foreach name = "list" item = "vo" key = "key">
+                <foreach name = "image" item = "v" key = "k">
+                    <if condition = "$k == $key">
+                        <div class="item" style="background: url('{$v.url}') no-repeat; background-size: cover;
+    background-position-y :50%;">
+                            <p class="title">《{$vo.title}》</p>
+                            <p class="words">{$vo.abstract}</p>
+                        </div>
+                    </if>
+                </foreach>
+            </foreach>
+        </div>
+    </div>
+
+
+    <div class="more">
+        <p>「 更多精彩尽在宠窝 」</p>
+    </div>
+
+   <include file="portal/public@footer"/>
+
+
+
+
+<script type="text/javascript">
+    (function(){
+        var video, output;
+        var scale = 0.8;
+        var initialize = function() {
+        output = document.getElementById("output");
+        video = document.getElementById("video");
+        video.addEventListener('loadeddata',captureImage);
+        };
+         
+        var captureImage = function() {
+                    var canvas = document.createElement("canvas");
+                    canvas.width = video.videoWidth * scale;
+                    canvas.height = video.videoHeight * scale;
+                    canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+         
+                    var img = document.createElement("img");
+                    img.src = canvas.toDataURL("image/png");
+                    output.appendChild(img);
+        };
+         
+        initialize();
+    })();
+
+    /**切换*/
+    $('.ctable').click(function(event) {
+        var id  =  $(this).attr('name');
+        
+        $.ajax({
+            url: '{:url("portal/Index/getNavArticle")}',
+            type: 'POST',
+            dataType: 'json',
+            data: {"id":id},
+            success:function(res){
+                var content = '';
+                for (var i = 0; i < res['data'].length; i++) {
+               
+                    content+= '<div class="item" style="background: url('+res['data'][i].url+') no-repeat; background-size: cover;background-position-y :50%;">';
+                    content+=     '<p class="title">《'+res['data'][i].title+'》</p>';
+                    content+=     '<p class="words">'+res['data'][i].abstract+'</p>';
+                    content+= '</div>';
+                }
+
+                $('.content').html(content);
+            },error:function(res){
+                console.log(res)
+            }
+        })
+        $(this).siblings('.ctable').removeClass("tab-active");
+        $(this).addClass('tab-active');
+        
+    });
+
+</script>
+</body>
+</html>
