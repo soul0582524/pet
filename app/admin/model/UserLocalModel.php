@@ -34,6 +34,12 @@ class UserLocalModel extends Model
             ->order($order)
             ->paginate($limit);
     }
+    public function CountPet($where)
+    {
+        return $result = Db::name('user_pet')
+            ->where($where)
+            ->count();
+    }
     public function add($add){
         return $result=Db::name('user_local')->insert($add);
     }

@@ -23,11 +23,16 @@ class UserLocalController extends AdminBaseController
 
         $find=new UserLocalModel();
         $res  = $find ->FindUser_Page($where, $field, $order, $limit);
+
         $page=$res->render();//获取分页
         $res=$res->toArray();
 
         $data=$res['data'];//提取数据
+
         foreach($data  as  $key=>$value){//设置性别返回
+            $where['userid']=array('=',$value["id"]); //条件
+            $count=$find->CountPet($where);
+            $data[$key]["count"]=$count;
             if($value["sex"]=="1"){
                 $data[$key]["sex"]="男";
             }else if($value["sex"]=="0"){
@@ -57,6 +62,7 @@ class UserLocalController extends AdminBaseController
         $add['status']=1;
         $in=new UserLocalModel();
         $code=$in->panduan($add);
+
         if($code==0){//如果返回的是没有重复  则再增加
 
             $result=$in->add($add);
