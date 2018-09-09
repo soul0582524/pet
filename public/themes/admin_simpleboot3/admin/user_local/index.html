@@ -22,7 +22,9 @@
                 <th class="tablecenter">性别</th>
                 <th class="tablecenter">宠物数量</th>
                 <th class="tablecenter">编辑用户</th>
+                <th class="tablecenter">给用户增加宠物</th>
                 <th class="tablecenter">拉黑用户</th>
+
             </tr>
             </thead>
             <tbody>
@@ -36,8 +38,9 @@
                     <td>{$userinfo.added_time|date='Y-m-d H:i:s',###}</td>
                     <td>{$userinfo.update_time|date='Y-m-d H:i:s',###}</td>
                     <td>{$userinfo.sex}</td>
-                    <td>{$userinfo.username}</td>
+                    <td>{$userinfo.count}</td>
                     <td><a href="{:url('admin/UserLocal/edit',array('id'=>$userinfo['id']))}">{:lang('EDIT')}</a></td>
+                    <td><a href="{:url('admin/UserPet/add_do',array('id'=>$userinfo['id']))}">增加</a></td>
                     <td><button class="btn btn-xs">拉黑</button></td>
                 </tr>
             </foreach>
